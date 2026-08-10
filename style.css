@@ -232,7 +232,7 @@ button:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1.2rem;
   padding-block: 0.85rem;
 }
 .brand {
@@ -266,19 +266,20 @@ button:focus-visible {
 .nav-primary {
   display: flex;
   align-items: center;
-  gap: 2.1rem;
+  gap: 1.5rem;
 }
 .nav-primary > ul {
   display: flex;
   align-items: center;
-  gap: 2.1rem;
+  gap: 1.5rem;
 }
 .nav-primary a.nav-link {
   color: rgba(247, 242, 230, 0.85);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   padding: 0.4rem 0.1rem;
   position: relative;
+  white-space: nowrap;
 }
 .nav-primary a.nav-link::after {
   content: '';
@@ -543,6 +544,7 @@ section {
 
 .mission-figure {
   position: relative;
+  height: 420px;
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow-soft);
@@ -562,34 +564,100 @@ section {
   color: var(--cream);
   font-size: 0.82rem;
   letter-spacing: 0.03em;
+  z-index: 2;
 }
 
-/* ---------- Doctrine strip (quick facts) ---------- */
-.facts {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: rgba(247, 242, 230, 0.14);
-  border-top: 1px solid rgba(247, 242, 230, 0.14);
-  border-bottom: 1px solid rgba(247, 242, 230, 0.14);
+/* ---------- Mission photo carousel ---------- */
+.carousel-slides {
+  position: absolute;
+  inset: 0;
 }
-.facts .fact {
-  background: var(--ink);
-  padding: 2.1rem 1.5rem;
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.carousel-slide.is-active {
+  opacity: 1;
+}
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(20, 23, 46, 0.55);
+  border: 1px solid rgba(247, 242, 230, 0.4);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.carousel-arrow:hover {
+  background: rgba(20, 23, 46, 0.8);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+.carousel-arrow svg {
+  width: 18px;
+  height: 18px;
+}
+.carousel-prev {
+  left: 14px;
+}
+.carousel-next {
+  right: 14px;
+}
+
+/* ---------- Doctrine marquee ---------- */
+.doctrine-marquee {
+  overflow: hidden;
+}
+.doctrine-track {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  animation: doctrine-scroll 45s linear infinite;
+}
+.doctrine-track:hover {
+  animation-play-state: paused;
+}
+@keyframes doctrine-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.doctrine-card {
+  flex: 0 0 auto;
+  width: 240px;
+  background: rgba(247, 242, 230, 0.04);
+  border: 1px solid rgba(201, 162, 39, 0.22);
+  border-radius: var(--radius);
+  padding: 1.8rem 1.5rem;
   text-align: center;
 }
-.facts .fact strong {
+.doctrine-card strong {
   display: block;
   font-family: var(--font-display);
   color: var(--gold-light);
-  font-size: clamp(1.6rem, 3vw, 2.1rem);
-  margin-bottom: 0.35rem;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
 }
-.facts .fact span {
+.doctrine-card span {
   color: rgba(247, 242, 230, 0.7);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.8rem;
+  line-height: 1.45;
 }
 
 /* ---------- Services / gatherings grid ---------- */
@@ -847,24 +915,20 @@ section {
 /* ---------- Gallery ---------- */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: 130px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
   gap: 0.6rem;
 }
 .gallery-grid a {
-  grid-column: span 2;
+  grid-column: span 1;
   grid-row: span 1;
   overflow: hidden;
   border-radius: 3px;
   display: block;
 }
 .gallery-grid a:nth-child(1) {
-  grid-column: span 3;
+  grid-column: span 2;
   grid-row: span 2;
-}
-.gallery-grid a:nth-child(4) {
-  grid-column: span 3;
-  grid-row: span 1;
 }
 .gallery-grid img {
   width: 100%;
@@ -942,6 +1006,59 @@ section {
 .donate-band .hero-actions {
   justify-content: center;
   margin-top: 2rem;
+}
+
+/* ---------- Location / map ---------- */
+.map-frame {
+  position: relative;
+  height: 420px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+.map-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------- Newcomers ---------- */
+.newcomer-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+.contact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--cream-dim);
+  max-width: 720px;
+  margin-inline: auto;
+  text-align: center;
+}
+.contact-item strong {
+  display: block;
+  font-family: var(--font-display);
+  color: var(--navy);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.contact-item span {
+  color: var(--ink-70);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.contact-item a {
+  color: var(--ink-70);
+}
+.contact-item a:hover {
+  color: var(--wine);
 }
 
 /* ============================================================
@@ -1057,7 +1174,10 @@ section {
   .mission {
     grid-template-columns: 1fr;
   }
-  .mission-figure img {
+  .mission-figure {
+    height: 320px;
+  }
+  .map-frame {
     height: 320px;
   }
 }
@@ -1068,9 +1188,6 @@ section {
   }
   .nav-toggle {
     display: flex;
-  }
-  .facts {
-    grid-template-columns: repeat(2, 1fr);
   }
   .event-row {
     grid-template-columns: 90px 1fr;
@@ -1083,14 +1200,11 @@ section {
     grid-template-columns: 1fr;
   }
   .gallery-grid {
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 100px;
-  }
-  .gallery-grid a {
-    grid-column: span 4;
-    grid-row: span 1;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 160px;
   }
   .gallery-grid a:nth-child(1) {
+    grid-column: span 2;
     grid-row: span 2;
   }
 }
@@ -1173,4 +1287,95 @@ section {
 }
 .mobile-nav .header-cta .btn {
   justify-content: center;
+}
+
+/* ============================================================
+   Welcome modal
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(20, 23, 46, 0.75);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  padding: 2.6rem 2.2rem 2.2rem;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+  transform: translateY(14px);
+  transition: transform 0.3s ease;
+}
+.modal-overlay.is-open .modal {
+  transform: translateY(0);
+}
+.modal .ribbon {
+  margin-inline: auto;
+  margin-bottom: 1.3rem;
+}
+.modal h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.7rem;
+}
+.modal p {
+  color: var(--ink-70);
+  font-size: 0.95rem;
+  margin-bottom: 1.7rem;
+}
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+.modal-dismiss {
+  background: none;
+  border: none;
+  color: var(--ink-70);
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.modal-dismiss:hover {
+  color: var(--wine);
+}
+.modal-close {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.8rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--ink-70);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.modal-close:hover {
+  background: var(--cream-dim);
+  color: var(--ink);
 }

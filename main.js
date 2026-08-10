@@ -67,6 +67,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---------- Welcome modal ---------- */
+  const welcomeModal = document.getElementById('welcomeModal');
+  if (welcomeModal) {
+    const WELCOME_SEEN_KEY = 'dlbc-welcome-seen';
+    const welcomeModalClose = document.getElementById('welcomeModalClose');
+    const welcomeModalDismiss = document.getElementById('welcomeModalDismiss');
+    const welcomeModalCta = document.getElementById('welcomeModalCta');
+
+    const closeWelcomeModal = () => {
+      welcomeModal.classList.remove('is-open');
+      welcomeModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    if (!localStorage.getItem(WELCOME_SEEN_KEY)) {
+      setTimeout(() => {
+        welcomeModal.classList.add('is-open');
+        welcomeModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        localStorage.setItem(WELCOME_SEEN_KEY, 'true');
+      }, 4000);
+    }
+
+    welcomeModalClose?.addEventListener('click', closeWelcomeModal);
+    welcomeModalDismiss?.addEventListener('click', closeWelcomeModal);
+    welcomeModalCta?.addEventListener('click', closeWelcomeModal);
+    welcomeModal.addEventListener('click', (e) => {
+      if (e.target === welcomeModal) closeWelcomeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && welcomeModal.classList.contains('is-open')) {
+        closeWelcomeModal();
+      }
+    });
+  }
+
   /* ---------- Hero slideshow ---------- */
   const heroSlides = document.querySelectorAll('.hero-slide');
   if (heroSlides.length > 1) {
@@ -76,6 +112,32 @@ document.addEventListener('DOMContentLoaded', () => {
       heroIndex = (heroIndex + 1) % heroSlides.length;
       heroSlides[heroIndex].classList.add('is-active');
     }, 6000);
+  }
+
+  /* ---------- Mission photo carousel ---------- */
+  const missionSlides = document.querySelectorAll('.mission-figure .carousel-slide');
+  const missionPrev = document.querySelector('.mission-figure .carousel-prev');
+  const missionNext = document.querySelector('.mission-figure .carousel-next');
+  if (missionSlides.length > 1) {
+    let missionIndex = 0;
+    const showMissionSlide = (next) => {
+      missionSlides[missionIndex].classList.remove('is-active');
+      missionIndex = (next + missionSlides.length) % missionSlides.length;
+      missionSlides[missionIndex].classList.add('is-active');
+    };
+    let missionTimer = setInterval(() => showMissionSlide(missionIndex + 1), 5000);
+    const resetMissionTimer = () => {
+      clearInterval(missionTimer);
+      missionTimer = setInterval(() => showMissionSlide(missionIndex + 1), 5000);
+    };
+    missionPrev?.addEventListener('click', () => {
+      showMissionSlide(missionIndex - 1);
+      resetMissionTimer();
+    });
+    missionNext?.addEventListener('click', () => {
+      showMissionSlide(missionIndex + 1);
+      resetMissionTimer();
+    });
   }
 
   /* ---------- Events calendar ---------- */
