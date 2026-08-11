@@ -215,13 +215,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   /* ---------- Hero slideshow ---------- */
   const heroSlides = document.querySelectorAll('.hero-slide');
+  const heroPrev = document.querySelector('.hero .carousel-prev');
+  const heroNext = document.querySelector('.hero .carousel-next');
   if (heroSlides.length > 1) {
     let heroIndex = 0;
-    setInterval(() => {
+    const showHeroSlide = (next) => {
       heroSlides[heroIndex].classList.remove('is-active');
-      heroIndex = (heroIndex + 1) % heroSlides.length;
+      heroIndex = (next + heroSlides.length) % heroSlides.length;
       heroSlides[heroIndex].classList.add('is-active');
-    }, 6000);
+    };
+    let heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 6000);
+    const resetHeroTimer = () => {
+      clearInterval(heroTimer);
+      heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 6000);
+    };
+    heroPrev?.addEventListener('click', () => {
+      showHeroSlide(heroIndex - 1);
+      resetHeroTimer();
+    });
+    heroNext?.addEventListener('click', () => {
+      showHeroSlide(heroIndex + 1);
+      resetHeroTimer();
+    });
   }
 
   /* ---------- Mission photo carousel ---------- */
