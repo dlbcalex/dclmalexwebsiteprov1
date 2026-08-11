@@ -1,9 +1,33 @@
 /* ============================================================
    Deeper Life Bible Church — Alexandria, VA
-   main.js — mobile nav, scroll reveal, small UX niceties
+   main.js — partial loading, nav, search, scroll reveal, small UX niceties
    ============================================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
+async function loadPartial(url, placeholderId) {
+  const el = document.getElementById(placeholderId);
+  if (!el) return;
+  try {
+    const res = await fetch(url);
+    el.outerHTML = await res.text();
+  } catch (err) {
+    console.error(`Failed to load ${url}`, err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await Promise.all([
+    loadPartial('partials/header.html', 'header-placeholder'),
+    loadPartial('partials/footer.html', 'footer-placeholder'),
+  ]);
+
+  /* ---------- Keep in-page links smooth-scrolling while already on the home page ---------- */
+  const isHome = /\/(index\.html)?$/.test(window.location.pathname);
+  if (isHome) {
+    document.querySelectorAll('a[href^="index.html#"]').forEach((a) => {
+      a.setAttribute('href', a.getAttribute('href').replace('index.html', ''));
+    });
+  }
+
   /* ---------- Mobile nav drawer ---------- */
   const navToggle = document.querySelector('.nav-toggle');
   const mobileNav = document.querySelector('.mobile-nav');
@@ -28,6 +52,90 @@ document.addEventListener('DOMContentLoaded', () => {
   mobileNav
     ?.querySelectorAll('a')
     .forEach((a) => a.addEventListener('click', closeNav));
+
+  /* ---------- Site search ---------- */
+  const SEARCH_INDEX = [
+    { title: 'Home', url: 'index.html' },
+    { title: 'Who We Are', url: 'index.html#about' },
+    { title: 'Our Beliefs / Bible Doctrines', url: 'index.html#beliefs' },
+    { title: 'Leadership', url: 'index.html#leadership' },
+    { title: 'Pastor Dr. William F. Kumuyi', url: 'pastor-kumuyi.html' },
+    { title: 'Pastor Dr. James Amara', url: 'pastor-amara.html' },
+    { title: 'Church Services', url: 'services.html' },
+    { title: 'Event Calendar', url: 'events.html' },
+    { title: 'Where We Are / Map', url: 'index.html#location' },
+    { title: 'Resources', url: 'index.html#resources' },
+    { title: 'Give / Donate', url: 'give.html' },
+    { title: 'Contact & Newcomers', url: 'contact.html' },
+  ];
+
+  const setupSearch = (input, resultsEl) => {
+    if (!input || !resultsEl) return;
+
+    const renderResults = (query) => {
+      const q = query.trim().toLowerCase();
+      resultsEl.innerHTML = '';
+      if (!q) {
+        resultsEl.classList.remove('is-open');
+        return;
+      }
+      const matches = SEARCH_INDEX.filter((item) =>
+        item.title.toLowerCase().includes(q)
+      ).slice(0, 6);
+      if (!matches.length) {
+        const empty = document.createElement('div');
+        empty.className = 'search-empty';
+        empty.textContent = 'No matches found.';
+        resultsEl.appendChild(empty);
+      } else {
+        matches.forEach((item) => {
+          const a = document.createElement('a');
+          a.href = item.url;
+          a.textContent = item.title;
+          resultsEl.appendChild(a);
+        });
+      }
+      resultsEl.classList.add('is-open');
+    };
+
+    input.addEventListener('input', () => renderResults(input.value));
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const first = resultsEl.querySelector('a');
+        if (first) window.location.href = first.getAttribute('href');
+      } else if (e.key === 'Escape') {
+        input.value = '';
+        resultsEl.innerHTML = '';
+        resultsEl.classList.remove('is-open');
+        input.blur();
+      }
+    });
+  };
+
+  const searchToggle = document.getElementById('searchToggle');
+  const searchPanel = document.getElementById('searchPanel');
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+  setupSearch(searchInput, searchResults);
+
+  searchToggle?.addEventListener('click', () => {
+    const isOpen = searchPanel.classList.toggle('is-open');
+    searchToggle.setAttribute('aria-expanded', String(isOpen));
+    if (isOpen) searchInput?.focus();
+  });
+  document.addEventListener('click', (e) => {
+    if (
+      searchPanel?.classList.contains('is-open') &&
+      !e.target.closest('.nav-search')
+    ) {
+      searchPanel.classList.remove('is-open');
+      searchToggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  const mobileSearchInput = document.getElementById('mobileSearchInput');
+  const mobileSearchResults = document.getElementById('mobileSearchResults');
+  setupSearch(mobileSearchInput, mobileSearchResults);
 
   /* ---------- Sticky header shadow on scroll ---------- */
   const header = document.querySelector('.site-header');

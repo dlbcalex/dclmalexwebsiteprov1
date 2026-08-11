@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Calendar | Deeper Life Bible Church, Alexandria VA</title>
+    <meta
+      name="description"
+      content="2026 event calendar for Deeper Life Bible Church, Alexandria VA — regional conventions, retreats, and local gatherings throughout the year."
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" type="image/png" href="images/dclmlogo.png" />
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+
+    <section class="page-banner">
+      <div class="wrap">
+        <div class="breadcrumb"><a href="index.html">Home</a> / Events</div>
+        <h1>Event Calendar</h1>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     EVENTS
+     ============================================================ -->
+    <section class="section-light">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="ribbon"
+            ><span class="dot">&#9670;</span> What's Ahead
+            <span class="dot">&#9670;</span></span
+          >
+          <h2>2026 Event Schedule</h2>
+          <p>
+            Mark your calendar — regional and local gatherings throughout the
+            year.
+          </p>
+        </div>
+
+        <div class="event-calendar">
+          <div class="calendar-head">
+            <button class="cal-nav" id="calPrev" aria-label="Previous month">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M19 12H5M11 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <h3 id="calMonthLabel">August 2026</h3>
+            <button class="cal-nav" id="calNext" aria-label="Next month">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+          <div class="calendar-grid" id="calGrid"></div>
+          <div class="calendar-events" id="calEventsList"></div>
+        </div>
+      </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
