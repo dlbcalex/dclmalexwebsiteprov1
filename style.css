@@ -599,7 +599,15 @@ button:focus-visible {
    Standalone page banner
    ============================================================ */
 .page-banner {
-  background: var(--navy);
+  position: relative;
+  background: linear-gradient(
+      180deg,
+      rgba(31, 47, 92, 0.82) 0%,
+      rgba(20, 23, 46, 0.88) 100%
+    ),
+    url('images/dclmalex.jpg');
+  background-size: cover;
+  background-position: center 60%;
   padding-block: 3rem;
   text-align: center;
 }
@@ -621,6 +629,145 @@ button:focus-visible {
   font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 600;
   color: var(--cream);
+}
+
+/* ============================================================
+   GCK — Global Crusade with Kumuyi (scoped theme)
+   ============================================================ */
+.gck-banner {
+  background: linear-gradient(
+      180deg,
+      rgba(8, 46, 56, 0.5) 0%,
+      rgba(8, 46, 56, 0.88) 100%
+    ),
+    url('images/gck2.png');
+  background-size: cover;
+  background-position: center 35%;
+}
+.gck-banner .breadcrumb a {
+  color: #bfeaf2;
+}
+.gck-banner-logo {
+  height: 60px;
+  width: auto;
+  margin: 0 auto 1.1rem;
+  display: block;
+}
+
+.gck-page {
+  --gck-teal: #146b7d;
+  --gck-teal-mid: #0f5666;
+  --gck-teal-deep: #082e38;
+  --gck-teal-pale: #bfeaf2;
+}
+.gck-page .section-light {
+  background: var(--white);
+}
+.gck-page .section-navy {
+  background: var(--gck-teal-mid);
+}
+.gck-page .section-dark {
+  background: var(--gck-teal-deep);
+}
+.gck-page .section-head h2 {
+  color: var(--gck-teal-deep);
+}
+.gck-page .ribbon {
+  --rb: var(--gck-teal-mid);
+  color: var(--gck-teal-pale);
+  border-top-color: var(--gck-teal);
+  border-bottom-color: var(--gck-teal);
+}
+.gck-page .ribbon .dot {
+  color: var(--gck-teal);
+}
+.gck-page .contact-item strong {
+  color: var(--gck-teal-mid);
+}
+.gck-page .btn-gold {
+  background: var(--gck-teal);
+  color: var(--white);
+}
+.gck-page .btn-gold:hover {
+  background: var(--gck-teal-deep);
+  box-shadow: 0 12px 30px -12px rgba(8, 46, 56, 0.6);
+}
+.gck-page .resource-card {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(191, 234, 242, 0.28);
+}
+.gck-page .resource-card .icon {
+  background: rgba(191, 234, 242, 0.16);
+  color: var(--gck-teal-pale);
+}
+.gck-page .resource-card .text-link {
+  color: var(--gck-teal-pale);
+}
+.gck-page .resource-card .text-link:hover {
+  color: var(--white);
+  border-color: var(--white);
+}
+.gck-page a:focus-visible,
+.gck-page button:focus-visible {
+  outline-color: var(--gck-teal);
+}
+
+.gck-format-section .ribbon {
+  color: var(--white);
+}
+.gck-format-section .section-head.on-dark h2 {
+  color: var(--white);
+}
+.gck-format-section .section-head.on-dark p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.gck-watch-section .ribbon {
+  color: var(--white);
+}
+.gck-watch-section .section-head.on-dark h2 {
+  color: var(--white);
+}
+.gck-watch-section .section-head.on-dark p {
+  color: rgba(255, 255, 255, 0.92);
+}
+.gck-watch-section .resource-card h3 {
+  color: var(--white);
+}
+.gck-watch-section .resource-card p {
+  color: rgba(255, 255, 255, 0.85);
+}
+.gck-watch-section .resource-card .text-link {
+  color: var(--white);
+}
+.gck-watch-section .resource-card .text-link:hover {
+  color: var(--gck-teal-pale);
+  border-color: var(--gck-teal-pale);
+}
+
+.gck-image-band {
+  position: relative;
+  padding-block: 4rem;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+}
+.gck-image-band h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 600;
+  font-style: italic;
+  color: var(--white);
+  max-width: 34ch;
+  margin-inline: auto;
+}
+.gck-image-band span {
+  display: block;
+  margin-top: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 /* ============================================================
@@ -796,7 +943,7 @@ section {
   display: flex;
   width: max-content;
   gap: 1rem;
-  animation: doctrine-scroll 45s linear infinite;
+  animation: doctrine-scroll 95s linear infinite;
 }
 .doctrine-track:hover {
   animation-play-state: paused;
@@ -833,63 +980,96 @@ section {
 
 /* ---------- Services / gatherings grid ---------- */
 .service-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.6rem;
-}
-.service-card {
-  background: var(--white);
-  border: 1px solid var(--cream-dim);
-  border-radius: var(--radius);
-  padding: 1.9rem 1.7rem;
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  gap: 6px;
 }
-.service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-soft);
-  border-color: var(--gold);
+.service-strip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  min-height: 360px;
+  padding-inline: clamp(1.5rem, 6vw, 4rem);
+  padding-block: 2.2rem;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  transition: background-size 0.6s ease;
 }
-.service-card .when {
-  align-self: flex-start;
-  background: var(--navy);
-  color: var(--gold-light);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 0.32rem 0.7rem;
-  border-radius: 3px;
+.service-strip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg, var(--gold), var(--gold-light));
+  z-index: 2;
 }
-.service-card h3 {
+.service-strip:hover {
+  background-size: 108%;
+}
+.strip-day {
+  flex: 0 0 auto;
+  min-width: 130px;
   font-family: var(--font-display);
-  font-size: 1.28rem;
+  font-size: 1.05rem;
   font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  border-right: 1px solid rgba(247, 242, 230, 0.25);
+  padding-right: clamp(1.5rem, 4vw, 3rem);
 }
-.service-card p {
-  color: var(--ink-70);
-  font-size: 0.93rem;
-  flex-grow: 1;
+.strip-main {
+  flex: 1 1 auto;
+  min-width: 0;
 }
-.service-card .join {
-  font-size: 0.85rem;
+.strip-main h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
   font-weight: 600;
-  color: var(--navy);
+  color: var(--white);
+}
+.strip-time {
+  display: block;
+  margin-top: 0.3rem;
+  color: rgba(247, 242, 230, 0.85);
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+}
+.service-strip .join {
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
+  padding: 0.6rem 1.15rem;
+  border-radius: 999px;
+  background: rgba(247, 242, 230, 0.12);
+  border: 1px solid rgba(247, 242, 230, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.25s ease, border-color 0.25s ease,
+    color 0.25s ease, transform 0.25s ease;
 }
-.service-card .join:hover {
-  color: var(--wine);
+.service-strip .join:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+  transform: translateX(3px);
 }
-.service-card .join svg {
+.service-strip .join svg {
   width: 14px;
   height: 14px;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 }
-.service-card .join:hover svg {
-  transform: translateX(3px);
+.service-strip .join:hover svg {
+  transform: translateX(4px);
 }
 
 .service-note {
@@ -900,6 +1080,9 @@ section {
 }
 .service-note strong {
   color: var(--ink);
+}
+.services-page .section-light {
+  background: var(--white);
 }
 
 /* ---------- Leadership ---------- */
@@ -1338,9 +1521,6 @@ section {
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
-  .service-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .leader-card {
     grid-template-columns: 1fr;
   }
@@ -1392,12 +1572,22 @@ section {
     grid-column: span 2;
     grid-row: span 2;
   }
+  .service-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding-block: 1.6rem;
+  }
+  .strip-day {
+    border-right: none;
+    border-bottom: 1px solid rgba(247, 242, 230, 0.25);
+    padding-right: 0;
+    padding-bottom: 0.5rem;
+    width: 100%;
+  }
 }
 
 @media (max-width: 640px) {
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
   .footer-grid {
     grid-template-columns: 1fr;
   }
