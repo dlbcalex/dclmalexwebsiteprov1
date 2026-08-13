@@ -239,6 +239,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
+  /* ---------- Newcomer form (placeholder — not yet wired to a backend) ---------- */
+  const newcomerForm = document.getElementById('newcomerForm');
+  const newcomerFormSuccess = document.getElementById('newcomerFormSuccess');
+  newcomerForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    newcomerForm.style.display = 'none';
+    newcomerFormSuccess?.classList.add('is-visible');
+  });
+
   /* ---------- Mission photo carousel ---------- */
   const missionSlides = document.querySelectorAll('.mission-figure .carousel-slide');
   const missionPrev = document.querySelector('.mission-figure .carousel-prev');

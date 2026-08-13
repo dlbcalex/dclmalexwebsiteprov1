@@ -44,8 +44,52 @@
           <p>Please fill out our form so we can connect with you and help you feel right at home.</p>
         </div>
 
-        <div class="newcomer-actions">
-          <a href="#" class="btn btn-gold">Fill Out Newcomer Form</a>
+        <form class="newcomer-form" id="newcomerForm">
+          <div>
+            <label for="ncName">Full Name</label>
+            <input type="text" id="ncName" name="name" required />
+          </div>
+          <div>
+            <label for="ncEmail">Email Address</label>
+            <input type="email" id="ncEmail" name="email" required />
+          </div>
+          <div>
+            <label for="ncPhone">Phone Number</label>
+            <input type="tel" id="ncPhone" name="phone" />
+          </div>
+          <div>
+            <label for="ncHeard">How did you hear about us?</label>
+            <select id="ncHeard" name="heard">
+              <option value="">Select one</option>
+              <option value="friend-family">Friend or Family</option>
+              <option value="online-search">Online Search</option>
+              <option value="social-media">Social Media</option>
+              <option value="walked-by">Walked By / Drove By</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field-full">
+            <label for="ncPrayer">Prayer Requests</label>
+            <textarea
+              id="ncPrayer"
+              name="prayer"
+              placeholder="Is there anything we can be praying for you about?"
+            ></textarea>
+          </div>
+          <div class="field-full">
+            <label for="ncMessage">Anything else you'd like us to know?</label>
+            <textarea id="ncMessage" name="message"></textarea>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn btn-gold">Submit</button>
+          </div>
+        </form>
+        <div class="form-success" id="newcomerFormSuccess">
+          <h3>Thank you!</h3>
+          <p>
+            We've received your information and someone from our church family
+            will be in touch soon.
+          </p>
         </div>
 
         <div class="contact-grid">
