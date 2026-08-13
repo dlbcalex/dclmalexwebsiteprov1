@@ -242,8 +242,8 @@ button:focus-visible {
 .site-header .wrap {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.2rem;
+  justify-content: flex-start;
+  gap: clamp(1.5rem, 4vw, 3rem);
   padding-block: 0.85rem;
 }
 .brand {
@@ -277,12 +277,12 @@ button:focus-visible {
 .nav-primary {
   display: flex;
   align-items: center;
-  gap: 1.15rem;
+  gap: 1.8rem;
 }
 .nav-primary > ul {
   display: flex;
   align-items: center;
-  gap: 1.15rem;
+  gap: 1.8rem;
 }
 .nav-primary a.nav-link {
   color: rgba(247, 242, 230, 0.85);
@@ -370,6 +370,7 @@ button:focus-visible {
   display: flex;
   align-items: center;
   gap: 0.9rem;
+  margin-left: auto;
 }
 
 .nav-toggle {
