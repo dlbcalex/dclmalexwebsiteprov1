@@ -277,16 +277,16 @@ button:focus-visible {
 .nav-primary {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.15rem;
 }
 .nav-primary > ul {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.15rem;
 }
 .nav-primary a.nav-link {
   color: rgba(247, 242, 230, 0.85);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
   padding: 0.4rem 0.1rem;
   position: relative;
@@ -509,10 +509,18 @@ button:focus-visible {
   object-fit: cover;
   object-position: center 30%;
   opacity: 0;
-  transition: opacity 1.6s ease;
+  transform: scale(1);
+  transition: opacity 2s ease, transform 7s ease-out;
 }
 .hero-media img.is-active {
   opacity: 1;
+  transform: scale(1.12);
+}
+.hero-media img:nth-child(odd) {
+  transform-origin: 30% 45%;
+}
+.hero-media img:nth-child(even) {
+  transform-origin: 72% 55%;
 }
 .hero-media::after {
   content: '';

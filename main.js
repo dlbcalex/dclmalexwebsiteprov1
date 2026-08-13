@@ -224,10 +224,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       heroIndex = (next + heroSlides.length) % heroSlides.length;
       heroSlides[heroIndex].classList.add('is-active');
     };
-    let heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 6000);
+    let heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 7000);
     const resetHeroTimer = () => {
       clearInterval(heroTimer);
-      heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 6000);
+      heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 7000);
     };
     heroPrev?.addEventListener('click', () => {
       showHeroSlide(heroIndex - 1);
