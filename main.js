@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const heroSlides = document.querySelectorAll('.hero-slide');
   const heroPrev = document.querySelector('.hero-arrow-prev');
   const heroNext = document.querySelector('.hero-arrow-next');
-  const heroContent = document.querySelector('.hero-content');
+  const heroContent = document.querySelector('.hero-text');
   if (heroSlides.length > 1) {
     let heroIndex = 0;
     let heroStep = 0;
