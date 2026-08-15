@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
@@ -43,35 +43,35 @@
           alt="Congregation worshiping together with hands raised"
           class="hero-slide"
         />
-        <button class="carousel-arrow carousel-prev" aria-label="Previous photo">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M19 12H5M11 18l-6-6 6-6" />
-          </svg>
-        </button>
-        <button class="carousel-arrow carousel-next" aria-label="Next photo">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </button>
       </div>
+      <button class="hero-arrow hero-arrow-prev" aria-label="Previous photo">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path d="M19 12H5M11 18l-6-6 6-6" />
+        </svg>
+      </button>
+      <button class="hero-arrow hero-arrow-next" aria-label="Next photo">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </button>
       <div class="hero-content wrap">
         <span class="hero-eyebrow">Alexandria, Virginia</span>
-        <h1>A place to grow <em>deeper</em> in faith, together.</h1>
+        <h1>Grow <em>Deeper</em><br />in Faith, Together</h1>
         <p class="hero-sub">
-          Welcome to Deeper Life Bible Church Alexandria, VA — a warm, multinational
-          congregation devoted to the systematic teaching of God's word and the
-          pursuit of holy living. Wherever you are in your walk, there's a seat
-          for you here.
+          Welcome to Deeper Life Bible Church Alexandria, VA — a small, warm,
+          multinational congregation devoted to the systematic teaching of
+          God's word and the pursuit of holy living. Wherever you are in
+          your walk, there's a seat for you here.
         </p>
         <div class="hero-actions">
           <a href="services.html" class="btn btn-gold">Join Us Sunday, 10AM</a>
@@ -83,7 +83,9 @@
             >Watch Online</a
           >
         </div>
-        <div class="hero-meta">
+      </div>
+      <div class="hero-meta-strip">
+        <div class="wrap hero-meta">
           <div><strong>1973</strong><span>Founded in Lagos, Nigeria</span></div>
           <div>
             <strong>Dr. W. F. Kumuyi</strong><span>General Superintendent</span>
@@ -97,13 +99,67 @@
     </section>
 
     <!-- ============================================================
+     QUICK ACCESS HUB
+     ============================================================ -->
+    <section class="quick-hub">
+      <div class="wrap quick-hub-grid">
+        <div class="quick-col">
+          <span class="quick-col-bar"></span>
+          <h3>Events</h3>
+          <div class="quick-item">
+            <span class="quick-badge">Upcoming</span>
+            <div class="quick-item-body">
+              <a href="events.html" class="quick-item-title"
+                >Regional Conventions &amp; Retreats</a
+              >
+              <span class="quick-item-sub">See the full 2026 calendar</span>
+            </div>
+          </div>
+          <a href="events.html" class="quick-col-link">View Full Calendar &rarr;</a>
+        </div>
+
+        <div class="quick-col">
+          <span class="quick-col-bar"></span>
+          <h3>Services</h3>
+          <div class="quick-item">
+            <span class="quick-badge">Sunday</span>
+            <div class="quick-item-body">
+              <a href="services.html" class="quick-item-title">Sunday Service</a>
+              <span class="quick-item-sub">10:00 AM &middot; In Person &amp; Zoom</span>
+            </div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Weekly</span>
+            <div class="quick-item-body">
+              <a href="services.html" class="quick-item-title"
+                >Home Care Fellowship</a
+              >
+              <span class="quick-item-sub">Sunday, 5:30 PM</span>
+            </div>
+          </div>
+          <a href="services.html" class="quick-col-link">View All Services &rarr;</a>
+        </div>
+
+        <div class="quick-col quick-col-give">
+          <span class="quick-col-bar"></span>
+          <h3>Give Online</h3>
+          <p>
+            Partner with us in the work of the Gospel through Zelle or by
+            mail.
+          </p>
+          <a href="give.html" class="btn btn-gold">Give Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
      MISSION / ABOUT TEASER
      ============================================================ -->
     <section id="about" class="section-light">
       <div class="wrap mission">
         <div class="mission-copy">
           <span class="ribbon"
-            ><span class="dot">&#9670;</span> Who We Are
+            ><span class="dot">&#9670;</span> About Us
             <span class="dot">&#9670;</span></span
           >
           <h2>Bible-based holiness, lived out as a family.</h2>
@@ -137,11 +193,6 @@
               alt="Members of the Alexandria congregation gathered together"
               class="carousel-slide"
             />
-            <img
-              src="images/dclmalex12.JPG"
-              alt="Members of the Alexandria congregation gathered together"
-              class="carousel-slide"
-            />
           </div>
           <button class="carousel-arrow carousel-prev" aria-label="Previous photo">
             <svg
@@ -163,9 +214,6 @@
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
           </button>
-          <figcaption>
-            The Alexandria, VA congregation — Holiness Unto the Lord
-          </figcaption>
         </figure>
       </div>
     </section>
@@ -385,7 +433,7 @@
       <div class="wrap">
         <div class="section-head">
           <span class="ribbon"
-            ><span class="dot">&#9670;</span> Our Church Family
+            ><span class="dot">&#9670;</span> Photo Gallery
             <span class="dot">&#9670;</span></span
           >
           <h2>Life together at Deeper Life Alexandria</h2>
@@ -427,7 +475,7 @@
       <div class="wrap">
         <div class="section-head">
           <span class="ribbon"
-            ><span class="dot">&#9670;</span> Where We Are
+            ><span class="dot">&#9670;</span> Our Location
             <span class="dot">&#9670;</span></span
           >
           <h2>Find us in Alexandria, Virginia</h2>

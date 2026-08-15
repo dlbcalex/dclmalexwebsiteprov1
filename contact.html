@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
@@ -40,56 +40,12 @@
             ><span class="dot">&#9670;</span> New Here?
             <span class="dot">&#9670;</span></span
           >
-          <h2>Newcomer? We'd like to hear from you!</h2>
+          <h2>Newcomer or looking to contact us? We'd like to hear from you!</h2>
           <p>Please fill out our form so we can connect with you and help you feel right at home.</p>
         </div>
 
-        <form class="newcomer-form" id="newcomerForm">
-          <div>
-            <label for="ncName">Full Name</label>
-            <input type="text" id="ncName" name="name" required />
-          </div>
-          <div>
-            <label for="ncEmail">Email Address</label>
-            <input type="email" id="ncEmail" name="email" required />
-          </div>
-          <div>
-            <label for="ncPhone">Phone Number</label>
-            <input type="tel" id="ncPhone" name="phone" />
-          </div>
-          <div>
-            <label for="ncHeard">How did you hear about us?</label>
-            <select id="ncHeard" name="heard">
-              <option value="">Select one</option>
-              <option value="friend-family">Friend or Family</option>
-              <option value="online-search">Online Search</option>
-              <option value="social-media">Social Media</option>
-              <option value="walked-by">Walked By / Drove By</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div class="field-full">
-            <label for="ncPrayer">Prayer Requests</label>
-            <textarea
-              id="ncPrayer"
-              name="prayer"
-              placeholder="Is there anything we can be praying for you about?"
-            ></textarea>
-          </div>
-          <div class="field-full">
-            <label for="ncMessage">Anything else you'd like us to know?</label>
-            <textarea id="ncMessage" name="message"></textarea>
-          </div>
-          <div class="form-submit">
-            <button type="submit" class="btn btn-gold">Submit</button>
-          </div>
-        </form>
-        <div class="form-success" id="newcomerFormSuccess">
-          <h3>Thank you!</h3>
-          <p>
-            We've received your information and someone from our church family
-            will be in touch soon.
-          </p>
+        <div class="newcomer-cta" id="newcomerForm">
+          <a href="#" class="btn btn-gold">Fill Out the Form</a>
         </div>
 
         <div class="contact-grid">

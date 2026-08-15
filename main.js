@@ -56,15 +56,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ---------- Site search ---------- */
   const SEARCH_INDEX = [
     { title: 'Home', url: 'index.html' },
-    { title: 'Who We Are', url: 'index.html#about' },
+    { title: 'About Us', url: 'index.html#about' },
     { title: 'Our Beliefs / Bible Doctrines', url: 'index.html#beliefs' },
     { title: 'Pastor Dr. William F. Kumuyi', url: 'pastor-kumuyi.html' },
-    { title: 'Pastor Dr. James Amara', url: 'pastor-amara.html' },
+    { title: 'Senior Pastor & Regional Overseer - Pastor Michael A. Dada', url: 'pastor-dada.html' },
+    { title: 'Location Pastor - Pastor Dr. James Amara', url: 'pastor-amara.html' },
     { title: 'Church Services', url: 'services.html' },
     { title: 'Event Calendar', url: 'events.html' },
     { title: 'Global Crusade with Kumuyi (GCK)', url: 'gck.html' },
-    { title: 'Our Church Family / Gallery', url: 'index.html#gallery' },
-    { title: 'Where We Are / Map', url: 'index.html#location' },
+    { title: 'Photo Gallery', url: 'index.html#gallery' },
+    { title: 'Our Location / Map', url: 'index.html#location' },
     { title: 'Daily Manna', url: 'https://www.dailymanna.app/signin' },
     { title: 'YouTube — DCLM Alexandria VA', url: 'https://www.youtube.com/@dclmalexva' },
     { title: 'Give / Donate', url: 'give.html' },
@@ -215,38 +216,156 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   /* ---------- Hero slideshow ---------- */
   const heroSlides = document.querySelectorAll('.hero-slide');
-  const heroPrev = document.querySelector('.hero .carousel-prev');
-  const heroNext = document.querySelector('.hero .carousel-next');
+  const heroPrev = document.querySelector('.hero-arrow-prev');
+  const heroNext = document.querySelector('.hero-arrow-next');
+  const heroContent = document.querySelector('.hero-content');
   if (heroSlides.length > 1) {
     let heroIndex = 0;
-    const showHeroSlide = (next) => {
-      heroSlides[heroIndex].classList.remove('is-active');
-      heroIndex = (next + heroSlides.length) % heroSlides.length;
-      heroSlides[heroIndex].classList.add('is-active');
+    let heroStep = 0;
+    let isAnimating = false;
+
+    const GATHER_MS = 420; // wind-up: the current slide holds and gathers energy
+    const RELEASE_MS = 1500; // outgoing slide's energetic exit
+    const ARRIVE_MS = 1700; // incoming slide's slow, soft-landing entrance
+
+    // A few distinct move "personalities" so consecutive transitions don't
+    // all feel identical — cycled in order, not random, so it stays coherent.
+    const VARIANTS = [
+      { enterScale: 1.06, exitScale: 0.95, drift: 0 },
+      { enterScale: 1.1, exitScale: 0.92, drift: 0 },
+      { enterScale: 1.03, exitScale: 0.97, drift: 3 },
+    ];
+
+    const place = (x, y, s) => `translate(${x}%, ${y}%) scale(${s})`;
+
+    heroSlides.forEach((slide, i) => {
+      slide.style.transform = place(i === 0 ? 0 : 100, 0, 1);
+    });
+
+    // Text gets a small, occasional drift so the hero doesn't feel static —
+    // deliberately not on every transition.
+    const shiftHeroText = () => {
+      if (!heroContent || Math.random() > 0.5) return;
+      const dir = Math.random() > 0.5 ? 1 : -1;
+      heroContent.style.transition =
+        'transform 1.2s cubic-bezier(0.22, 1, 0.36, 1)';
+      heroContent.style.transform = `translate(${dir * 5}px, -3px)`;
+      setTimeout(() => {
+        heroContent.style.transform = 'translate(0, 0)';
+      }, 550);
     };
-    let heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 7000);
+
+    const showHeroSlide = (targetIndex, direction) => {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      const outgoing = heroSlides[heroIndex];
+      heroIndex = (targetIndex + heroSlides.length) % heroSlides.length;
+      const incoming = heroSlides[heroIndex];
+      const variant = VARIANTS[heroStep % VARIANTS.length];
+      heroStep++;
+
+      // Position incoming off-screen instantly, no transition.
+      incoming.style.transition = 'none';
+      incoming.style.transform = place(direction * 100, 0, variant.enterScale);
+      incoming.classList.add('is-active');
+      // Force reflow so the transition-less position above is committed
+      // before re-enabling the transition, or the browser will animate it.
+      void incoming.offsetWidth;
+
+      // Phase 1 — gather energy: the outgoing slide takes a subtle inward
+      // breath and dims slightly, as if winding up before it launches.
+      outgoing.style.transition = `transform ${GATHER_MS}ms cubic-bezier(0.45, 0, 0.55, 1), filter ${GATHER_MS}ms ease`;
+      outgoing.style.transform = place(0, 0, 0.985);
+      outgoing.style.filter = 'saturate(1.08) contrast(1.1) brightness(0.92)';
+
+      shiftHeroText();
+
+      setTimeout(() => {
+        // Phase 2 — release: outgoing accelerates away quickly, while
+        // incoming eases in slowly and settles with a soft landing.
+        outgoing.style.transition = `transform ${RELEASE_MS}ms cubic-bezier(0.7, 0, 0.84, 0), filter ${RELEASE_MS}ms ease`;
+        outgoing.style.transform = place(
+          -direction * (100 + variant.drift),
+          variant.drift ? -variant.drift : 0,
+          variant.exitScale
+        );
+        outgoing.style.filter = 'saturate(1.08) contrast(1.1) brightness(1)';
+
+        incoming.style.transition = `transform ${ARRIVE_MS}ms cubic-bezier(0.16, 1, 0.3, 1)`;
+        incoming.style.transform = place(0, 0, 1);
+
+        incoming.addEventListener(
+          'transitionend',
+          () => {
+            outgoing.classList.remove('is-active');
+            outgoing.style.transition = 'none';
+            outgoing.style.transform = place(100, 0, 1);
+            outgoing.style.filter = '';
+            void outgoing.offsetWidth;
+            outgoing.style.transition = '';
+            isAnimating = false;
+          },
+          { once: true }
+        );
+      }, GATHER_MS);
+    };
+    let heroTimer = setInterval(() => showHeroSlide(heroIndex + 1, 1), 7000);
     const resetHeroTimer = () => {
       clearInterval(heroTimer);
-      heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 7000);
+      heroTimer = setInterval(() => showHeroSlide(heroIndex + 1, 1), 7000);
     };
     heroPrev?.addEventListener('click', () => {
-      showHeroSlide(heroIndex - 1);
+      showHeroSlide(heroIndex - 1, -1);
       resetHeroTimer();
     });
     heroNext?.addEventListener('click', () => {
-      showHeroSlide(heroIndex + 1);
+      showHeroSlide(heroIndex + 1, 1);
       resetHeroTimer();
     });
   }
 
-  /* ---------- Newcomer form (placeholder — not yet wired to a backend) ---------- */
-  const newcomerForm = document.getElementById('newcomerForm');
-  const newcomerFormSuccess = document.getElementById('newcomerFormSuccess');
-  newcomerForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    newcomerForm.style.display = 'none';
-    newcomerFormSuccess?.classList.add('is-visible');
-  });
+  /* ---------- Animated stat count-up (GCK page) ---------- */
+  const countEls = document.querySelectorAll('[data-count-to]');
+  if ('IntersectionObserver' in window && countEls.length) {
+    const animateCount = (el) => {
+      const target = parseFloat(el.dataset.countTo);
+      const decimals = parseInt(el.dataset.countDecimals || '0', 10);
+      const suffix = el.dataset.countSuffix || '';
+      const format = (n) =>
+        n.toLocaleString('en-US', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        }) + suffix;
+
+      // Lock in the final width up front so the changing digit count
+      // doesn't reflow/jitter the surrounding layout mid-animation.
+      el.textContent = format(target);
+      el.style.minWidth = `${el.offsetWidth}px`;
+
+      const duration = 1400;
+      const start = performance.now();
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 2);
+        el.textContent = format(target * eased);
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const countObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCount(entry.target);
+            countObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    countEls.forEach((el) => countObserver.observe(el));
+  }
 
   /* ---------- Mission photo carousel ---------- */
   const missionSlides = document.querySelectorAll('.mission-figure .carousel-slide');
