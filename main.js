@@ -20,6 +20,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadPartial('partials/footer.html', 'footer-placeholder'),
   ]);
 
+  /* ---------- Discourage image saving (privacy) ---------- */
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
+  document.addEventListener('dragstart', (e) => {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
+
   /* ---------- Keep in-page links smooth-scrolling while already on the home page ---------- */
   const isHome = /\/(index\.html)?$/.test(window.location.pathname);
   if (isHome) {
@@ -210,6 +218,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && welcomeModal.classList.contains('is-open')) {
         closeWelcomeModal();
+      }
+    });
+  }
+
+  /* ---------- Gallery lightbox ---------- */
+  const galleryLightbox = document.getElementById('galleryLightbox');
+  if (galleryLightbox) {
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    const closeLightbox = () => {
+      galleryLightbox.classList.remove('is-open');
+      galleryLightbox.setAttribute('aria-hidden', 'true');
+      lightboxImage.src = '';
+      document.body.style.overflow = '';
+    };
+
+    document.querySelectorAll('.gallery-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        lightboxImage.src = item.dataset.src;
+        lightboxImage.alt = item.dataset.alt || '';
+        galleryLightbox.classList.add('is-open');
+        galleryLightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    lightboxClose?.addEventListener('click', closeLightbox);
+    galleryLightbox.addEventListener('click', (e) => {
+      if (e.target === galleryLightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && galleryLightbox.classList.contains('is-open')) {
+        closeLightbox();
       }
     });
   }

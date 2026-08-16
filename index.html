@@ -438,31 +438,61 @@
           <h2>Life together at Deeper Life Alexandria</h2>
         </div>
         <div class="gallery-grid">
-          <a href="images/dclmalex6.jpg" target="_blank" rel="noopener"
-            ><img
+          <button
+            class="gallery-item"
+            type="button"
+            data-src="images/dclmalex6.jpg"
+            data-alt="Congregation members gathered in fellowship"
+          >
+            <img
               src="images/dclmalex6.jpg"
               alt="Congregation members gathered in fellowship"
-          /></a>
-          <a href="images/dclmalex4.jpg" target="_blank" rel="noopener"
-            ><img
+            />
+          </button>
+          <button
+            class="gallery-item"
+            type="button"
+            data-src="images/dclmalex4.jpg"
+            data-alt="Church members celebrating together"
+          >
+            <img
               src="images/dclmalex4.jpg"
               alt="Church members celebrating together"
-          /></a>
-          <a href="images/dclmalex3.jpg" target="_blank" rel="noopener"
-            ><img
+            />
+          </button>
+          <button
+            class="gallery-item"
+            type="button"
+            data-src="images/dclmalex3.jpg"
+            data-alt="Congregation family photo under the Holiness Unto the Lord banner"
+          >
+            <img
               src="images/dclmalex3.jpg"
               alt="Congregation family photo under the Holiness Unto the Lord banner"
-          /></a>
-          <a href="images/dclmalex9.JPG" target="_blank" rel="noopener"
-            ><img
+            />
+          </button>
+          <button
+            class="gallery-item"
+            type="button"
+            data-src="images/dclmalex9.JPG"
+            data-alt="Church members gathered for a group photo"
+          >
+            <img
               src="images/dclmalex9.JPG"
               alt="Church members gathered for a group photo"
-          /></a>
-          <a href="images/dclmalex10.JPG" target="_blank" rel="noopener"
-            ><img
+            />
+          </button>
+          <button
+            class="gallery-item"
+            type="button"
+            data-src="images/dclmalex10.JPG"
+            data-alt="Photo of the Alexandria congregation members gathered together"
+          >
+            <img
               src="images/dclmalex10.JPG"
               alt="Photo of the Alexandria congregation members gathered together"
-          /></a>
+            />
+          </button>
         </div>
       </div>
     </section>
@@ -499,6 +529,16 @@
     </section>
 
     <div id="footer-placeholder"></div>
+
+    <!-- ============================================================
+     GALLERY LIGHTBOX
+     ============================================================ -->
+    <div class="lightbox-overlay" id="galleryLightbox" aria-hidden="true">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+        &times;
+      </button>
+      <img src="" alt="" id="lightboxImage" />
+    </div>
 
     <script src="main.js"></script>
   </body>
