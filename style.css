@@ -1803,8 +1803,9 @@ section {
   .pastor-welcome {
     grid-template-columns: 1fr;
   }
-  .pastor-welcome-photo img {
-    aspect-ratio: 16 / 10;
+  .pastor-welcome-photo {
+    max-width: 320px;
+    margin-inline: auto;
   }
   .mission {
     grid-template-columns: 1fr;
