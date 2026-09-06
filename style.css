@@ -273,18 +273,6 @@ button:focus-visible {
   letter-spacing: 0.26em;
   text-transform: uppercase;
 }
-.site-header .brand-text {
-  flex-direction: column;
-  gap: 0.1rem;
-}
-.site-header .brand-text strong {
-  font-size: 0.72rem;
-  letter-spacing: 0.01em;
-}
-.site-header .brand-text span {
-  font-size: 0.56rem;
-  letter-spacing: 0.06em;
-}
 
 .nav-primary {
   display: flex;
@@ -1666,6 +1654,138 @@ section {
 }
 .contact-item a:hover {
   color: var(--wine);
+}
+
+/* ---------- Connect / Stay Connected ---------- */
+.connect-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin-inline: auto;
+}
+.connect-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 2rem 1.8rem;
+  background: var(--white);
+  border: 1px solid var(--cream-dim);
+  border-top: 4px solid var(--gold);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+}
+.connect-card-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gold);
+  box-shadow: 0 6px 18px -8px rgba(20, 23, 46, 0.4);
+}
+.connect-tag {
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: var(--cream-dim);
+  color: var(--ink-70);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.connect-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.connect-card p {
+  flex: 1 1 auto;
+  color: var(--ink-70);
+  font-size: 0.92rem;
+}
+.connect-card .join {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1.3rem;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.connect-card .join:hover {
+  background: var(--wine);
+  transform: translateX(3px);
+}
+.connect-card .join svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+.connect-card .join:hover svg {
+  transform: translateX(4px);
+}
+.connect-alt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.2rem;
+  max-width: 900px;
+  margin-inline: auto;
+}
+.connect-alt {
+  display: block;
+  padding: 1.4rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.connect-alt:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.connect-alt strong {
+  display: block;
+  font-family: var(--font-display);
+  color: var(--cream);
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+.connect-alt span {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.86rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Home-page "stay connected" band */
+.connect-band {
+  background: linear-gradient(90deg, var(--navy) 0%, var(--navy-soft) 100%);
+  color: var(--cream);
+  padding-block: 2.4rem;
+}
+.connect-band .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  flex-wrap: wrap;
+}
+.connect-band-copy strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.connect-band-copy span {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
 }
 
 /* ============================================================

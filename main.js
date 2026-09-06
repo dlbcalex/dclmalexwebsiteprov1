@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     { title: 'Location Pastor - Pastor Dr. James Amara', url: 'pastor-amara.html' },
     { title: 'Church Services', url: 'services.html' },
     { title: 'Event Calendar', url: 'events.html' },
+    { title: 'Stay Connected / WhatsApp Groups', url: 'connect.html' },
     { title: 'Global Crusade with Kumuyi (GCK)', url: 'gck.html' },
     { title: 'Photo Gallery', url: 'index.html#gallery' },
     { title: 'Our Location / Map', url: 'index.html#location' },
