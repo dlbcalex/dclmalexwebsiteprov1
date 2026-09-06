@@ -273,6 +273,10 @@ button:focus-visible {
   letter-spacing: 0.26em;
   text-transform: uppercase;
 }
+/* Header brand text: logo-only on desktop, name shown on mobile (see 1024px query) */
+.site-header .brand-text {
+  display: none;
+}
 
 .nav-primary {
   display: flex;
@@ -1906,6 +1910,27 @@ section {
   .hero-photo {
     min-height: 54vh;
   }
+  /* Collapse the primary nav to the drawer early enough that the header
+     CTAs (esp. Donate) never overflow on iPad Pro / Surface Pro widths. */
+  .nav-primary {
+    display: none;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+  .site-header .brand-text {
+    display: flex;
+    gap: 0.05rem;
+  }
+  .site-header .brand-text strong {
+    font-size: 0.7rem;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+  }
+  .site-header .brand-text span {
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+  }
   .quick-hub-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -1948,12 +1973,6 @@ section {
 }
 
 @media (max-width: 860px) {
-  .nav-primary {
-    display: none;
-  }
-  .nav-toggle {
-    display: flex;
-  }
   .quick-hub-grid {
     grid-template-columns: 1fr;
   }
