@@ -1,6 +1,6 @@
 /* ============================================================
-   Deeper Life Bible Church — Alexandria, VA
-   main.js — partial loading, nav, search, scroll reveal, small UX niceties
+   Deeper Life Bible Church, Alexandria, VA
+   main.js: partial loading, nav, search, scroll reveal, small UX niceties
    ============================================================ */
 
 async function loadPartial(url, placeholderId) {
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     { title: 'Photo Gallery', url: 'index.html#gallery' },
     { title: 'Our Location / Map', url: 'index.html#location' },
     { title: 'Daily Manna', url: 'https://www.dailymanna.app/signin' },
-    { title: 'YouTube — DCLM Alexandria VA', url: 'https://www.youtube.com/@dclmalexva' },
+    { title: 'YouTube: DCLM Alexandria VA', url: 'https://www.youtube.com/@dclmalexva' },
     { title: 'Give / Donate', url: 'give.html' },
     { title: 'Contact & Newcomers', url: 'contact.html' },
   ];
@@ -189,8 +189,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   /* ---------- Welcome modal ---------- */
   const welcomeModal = document.getElementById('welcomeModal');
+  const WELCOME_SEEN_KEY = 'dlbc-welcome-seen';
+  const queueWelcomeModal = () => {
+    if (!welcomeModal || localStorage.getItem(WELCOME_SEEN_KEY)) return;
+    setTimeout(() => {
+      welcomeModal.classList.add('is-open');
+      welcomeModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      localStorage.setItem(WELCOME_SEEN_KEY, 'true');
+    }, 1200);
+  };
   if (welcomeModal) {
-    const WELCOME_SEEN_KEY = 'dlbc-welcome-seen';
     const welcomeModalClose = document.getElementById('welcomeModalClose');
     const welcomeModalDismiss = document.getElementById('welcomeModalDismiss');
     const welcomeModalCta = document.getElementById('welcomeModalCta');
@@ -200,15 +209,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       welcomeModal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
     };
-
-    if (!localStorage.getItem(WELCOME_SEEN_KEY)) {
-      setTimeout(() => {
-        welcomeModal.classList.add('is-open');
-        welcomeModal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        localStorage.setItem(WELCOME_SEEN_KEY, 'true');
-      }, 4000);
-    }
 
     welcomeModalClose?.addEventListener('click', closeWelcomeModal);
     welcomeModalDismiss?.addEventListener('click', closeWelcomeModal);
@@ -221,6 +221,47 @@ document.addEventListener('DOMContentLoaded', async () => {
         closeWelcomeModal();
       }
     });
+  }
+
+  /* ---------- GCK September announcement (shows before the welcome modal) ---------- */
+  const gckModal = document.getElementById('gckAnnouncementModal');
+  if (gckModal) {
+    const GCK_SEEN_KEY = 'dlbc-gck-sept-2026-seen';
+    const gckClose = document.getElementById('gckAnnouncementClose');
+    const gckDismiss = document.getElementById('gckAnnouncementDismiss');
+    const gckCta = document.getElementById('gckAnnouncementCta');
+
+    const closeGckModal = () => {
+      gckModal.classList.remove('is-open');
+      gckModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      queueWelcomeModal();
+    };
+
+    if (!localStorage.getItem(GCK_SEEN_KEY)) {
+      setTimeout(() => {
+        gckModal.classList.add('is-open');
+        gckModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        localStorage.setItem(GCK_SEEN_KEY, 'true');
+      }, 1500);
+    } else {
+      queueWelcomeModal();
+    }
+
+    gckClose?.addEventListener('click', closeGckModal);
+    gckDismiss?.addEventListener('click', closeGckModal);
+    gckCta?.addEventListener('click', closeGckModal);
+    gckModal.addEventListener('click', (e) => {
+      if (e.target === gckModal) closeGckModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && gckModal.classList.contains('is-open')) {
+        closeGckModal();
+      }
+    });
+  } else {
+    queueWelcomeModal();
   }
 
   /* ---------- Gallery lightbox ---------- */
@@ -272,7 +313,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const ARRIVE_MS = 1700; // incoming slide's slow, soft-landing entrance
 
     // A few distinct move "personalities" so consecutive transitions don't
-    // all feel identical — cycled in order, not random, so it stays coherent.
+    // all feel identical, cycled in order, not random, so it stays coherent.
     const VARIANTS = [
       { enterScale: 1.06, exitScale: 0.95, drift: 0 },
       { enterScale: 1.1, exitScale: 0.92, drift: 0 },
@@ -285,7 +326,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       slide.style.transform = place(i === 0 ? 0 : 100, 0, 1);
     });
 
-    // Text gets a small, occasional drift so the hero doesn't feel static —
+    // Text gets a small, occasional drift so the hero doesn't feel static;
     // deliberately not on every transition.
     const shiftHeroText = () => {
       if (!heroContent || Math.random() > 0.5) return;
@@ -316,7 +357,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // before re-enabling the transition, or the browser will animate it.
       void incoming.offsetWidth;
 
-      // Phase 1 — gather energy: the outgoing slide takes a subtle inward
+      // Phase 1, gather energy: the outgoing slide takes a subtle inward
       // breath and dims slightly, as if winding up before it launches.
       outgoing.style.transition = `transform ${GATHER_MS}ms cubic-bezier(0.45, 0, 0.55, 1), filter ${GATHER_MS}ms ease`;
       outgoing.style.transform = place(0, 0, 0.985);
@@ -325,7 +366,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       shiftHeroText();
 
       setTimeout(() => {
-        // Phase 2 — release: outgoing accelerates away quickly, while
+        // Phase 2, release: outgoing accelerates away quickly, while
         // incoming eases in slowly and settles with a soft landing.
         outgoing.style.transition = `transform ${RELEASE_MS}ms cubic-bezier(0.7, 0, 0.84, 0), filter ${RELEASE_MS}ms ease`;
         outgoing.style.transform = place(

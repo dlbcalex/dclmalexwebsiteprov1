@@ -1,21 +1,21 @@
 /* ============================================================
-   Deeper Life Bible Church — Alexandria, VA
-   Stylesheet — style.css
+   Deeper Life Bible Church, Alexandria, VA
+   Stylesheet: style.css
    ============================================================ */
 
 /* ---------- Design tokens ---------- */
 :root {
   /* Color */
-  --ink: #111111; /* black — all body/heading text */
-  --navy: #2f80ed; /* blue — section backgrounds, nav accents */
-  --navy-soft: #1c5fc0; /* darker blue — gradient depth only, still "blue" */
-  --gold: #d7263d; /* red — buttons and small accents ONLY, never large text */
-  --gold-light: #e8636f; /* lighter red — hover backgrounds only, never text */
-  --cream: #ffffff; /* white — light backgrounds */
-  --cream-dim: #f0f2f5; /* near-white — subtle section separation */
-  --wine: #a3182a; /* darker red — hover/darken background, never text */
+  --ink: #111111; /* black, all body/heading text */
+  --navy: #2f80ed; /* blue, section backgrounds, nav accents */
+  --navy-soft: #1c5fc0; /* darker blue, gradient depth only, still "blue" */
+  --gold: #d7263d; /* red, buttons and small accents ONLY, never large text */
+  --gold-light: #e8636f; /* lighter red, hover backgrounds only, never text */
+  --cream: #ffffff; /* white, light backgrounds */
+  --cream-dim: #f0f2f5; /* near-white, subtle section separation */
+  --wine: #a3182a; /* darker red, hover/darken background, never text */
   --white: #ffffff;
-  --nav-text: #111111; /* black — nav text/icons on white bar */
+  --nav-text: #111111; /* black, nav text/icons on white bar */
   --ink-70: rgba(17, 17, 17, 0.72);
   --ink-40: rgba(17, 17, 17, 0.4);
   --line: rgba(215, 38, 61, 0.3);
@@ -798,7 +798,7 @@ button:focus-visible {
 }
 
 /* ============================================================
-   GCK — Global Crusade with Kumuyi (scoped theme)
+   GCK: Global Crusade with Kumuyi (scoped theme)
    ============================================================ */
 .gck-banner {
   background: linear-gradient(
@@ -937,7 +937,7 @@ button:focus-visible {
 }
 
 /* ============================================================
-   SECTIONS — generic
+   SECTIONS: generic
    ============================================================ */
 section {
   padding-block: clamp(4rem, 8vw, 6.5rem);
@@ -2102,9 +2102,10 @@ section {
   inset: 0;
   z-index: 300;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 2.5rem 1.5rem;
+  overflow-y: auto;
   background: rgba(20, 23, 46, 0.75);
   opacity: 0;
   visibility: hidden;
@@ -2118,6 +2119,7 @@ section {
   position: relative;
   width: 100%;
   max-width: 440px;
+  margin: auto;
   padding: 2.6rem 2.2rem 2.2rem;
   background: var(--white);
   border-radius: var(--radius);
@@ -2128,6 +2130,21 @@ section {
 }
 .modal-overlay.is-open .modal {
   transform: translateY(0);
+}
+.modal-logo {
+  display: block;
+  width: 72px;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto 1.2rem;
+}
+.modal-banner {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto 1.3rem;
+  border-radius: var(--radius);
 }
 .modal .ribbon {
   margin-inline: auto;
@@ -2183,6 +2200,61 @@ section {
 .modal-close:hover {
   background: var(--cream-dim);
   color: var(--ink);
+}
+.modal-announcement {
+  padding: 1.8rem 1.8rem 1.6rem;
+  border: 3px solid var(--white);
+  background: linear-gradient(
+      rgba(13, 18, 38, 0.86),
+      rgba(13, 18, 38, 0.9)
+    ),
+    url('images/gckkumuyi.jpg') center 20% / cover no-repeat;
+}
+.modal-gck-logo {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: var(--white);
+  padding: 3px;
+  box-shadow: var(--shadow-soft);
+}
+.modal-announcement .modal-banner {
+  max-width: 210px;
+  margin-top: 0.6rem;
+  margin-bottom: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+.modal-announcement .ribbon {
+  color: var(--cream);
+  margin-bottom: 0.8rem;
+}
+.modal-announcement h3 {
+  color: var(--white);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.modal-announcement p {
+  color: var(--white);
+  font-size: 0.88rem;
+  margin-bottom: 1.1rem;
+}
+.modal-announcement .modal-close {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--white);
+}
+.modal-announcement .modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--white);
+}
+.modal-announcement .modal-dismiss {
+  color: var(--white);
+}
+.modal-announcement .modal-dismiss:hover {
+  color: var(--gold-light);
 }
 
 /* ============================================================
