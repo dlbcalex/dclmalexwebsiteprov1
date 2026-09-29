@@ -508,21 +508,45 @@ button:focus-visible {
   position: relative;
   margin: 0;
   padding-block: 0;
-  background: #eaf6f6;
+  background: var(--navy);
   overflow: hidden;
 }
 .hero-grid {
   display: grid;
   grid-template-columns: 0.82fr 1.18fr;
-  min-height: 82vh;
+  min-height: 94vh;
   align-items: stretch;
 }
 .hero-text {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: #eaf6f6;
+  overflow: hidden;
   padding: clamp(2.5rem, 5vw, 4.5rem);
+}
+.hero-media-bg {
+  position: absolute;
+  inset: 0;
+}
+.hero-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: saturate(1.1) contrast(1.05);
+}
+.hero-media-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(173, 210, 255, 0.4);
+}
+.hero-text-inner {
+  position: relative;
+  z-index: 2;
 }
 .hero-photo {
   position: relative;
@@ -587,53 +611,46 @@ button:focus-visible {
 }
 .hero-eyebrow {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.6rem;
-  color: var(--ink);
+  max-width: 34ch;
+  color: var(--white);
   font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
   text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(13, 18, 38, 0.4);
   margin-bottom: 1.3rem;
 }
 .hero-eyebrow::before {
   content: '';
-  width: 32px;
+  flex-shrink: 0;
+  width: 18px;
   height: 2px;
+  margin-top: 0.5em;
   background: var(--gold);
 }
 .hero h1 {
   font-family: var(--font-display);
-  color: var(--ink);
+  color: var(--white);
   font-size: clamp(2.4rem, 4vw, 3.8rem);
   font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.01em;
   text-transform: uppercase;
+  text-shadow: 0 2px 12px rgba(13, 18, 38, 0.35);
 }
 .hero h1 em {
   font-style: normal;
   color: var(--navy);
-}
-.hero-sub {
-  margin-top: 1.5rem;
-  max-width: 46ch;
-  color: var(--ink-70);
-  font-size: 1.05rem;
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.55);
 }
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-top: 2.4rem;
-}
-.hero-text .btn-outline {
-  border-color: var(--ink);
-  color: var(--ink);
-}
-.hero-text .btn-outline:hover {
-  border-color: var(--gold);
-  color: var(--gold);
+  margin-top: 1.8rem;
 }
 .hero-meta-strip {
   position: relative;
@@ -661,6 +678,138 @@ button:focus-visible {
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.78rem;
   letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   Church services showcase (homepage tile grid)
+   ============================================================ */
+.homepage section.services-showcase {
+  padding-block: clamp(1.6rem, 3vw, 2.4rem);
+}
+.services-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.8rem;
+  padding-inline: var(--gutter);
+  max-width: var(--maxw);
+  margin: 1.4rem auto 0;
+}
+.services-tile {
+  position: relative;
+  display: block;
+  min-height: 240px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  padding: 1.3rem;
+  color: var(--white);
+  transition: background-size 0.5s ease;
+}
+.services-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(13, 18, 38, 0.85) 0%,
+    rgba(13, 18, 38, 0.35) 55%,
+    rgba(13, 18, 38, 0.15) 100%
+  );
+}
+.services-tile:hover {
+  background-size: 112%;
+}
+.services-tile-bar {
+  position: relative;
+  display: block;
+  width: 34px;
+  height: 3px;
+  background: var(--gold);
+  margin-bottom: 0.8rem;
+}
+.services-tile h3 {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
+}
+.services-tile > span:last-of-type {
+  position: relative;
+  display: block;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ============================================================
+   Featured GCK messages
+   ============================================================ */
+.gck-message-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  margin-top: 2rem;
+}
+.message-card {
+  display: block;
+  color: inherit;
+}
+.message-thumb {
+  position: relative;
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  margin-bottom: 0.9rem;
+}
+.message-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.message-card:hover .message-thumb img {
+  transform: scale(1.05);
+}
+.message-play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(13, 18, 38, 0.55);
+  color: var(--white);
+  transition: background 0.2s ease;
+}
+.message-card:hover .message-play {
+  background: var(--gold);
+}
+.message-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 4px;
+}
+.gck-messages-source {
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--ink-70);
+  font-size: 0.9rem;
+}
+.gck-messages-source a {
+  color: var(--gold);
+  text-decoration: underline;
 }
 
 /* ============================================================
@@ -941,6 +1090,9 @@ button:focus-visible {
    ============================================================ */
 section {
   padding-block: clamp(4rem, 8vw, 6.5rem);
+}
+.homepage section:not(.hero) {
+  padding-block: clamp(3.2rem, 6.5vw, 5.2rem);
 }
 .section-light {
   background: var(--cream);
@@ -1907,8 +2059,14 @@ section {
     grid-template-columns: 1fr;
     min-height: auto;
   }
+  .hero-text {
+    min-height: 56vh;
+    padding-bottom: 5.5rem;
+  }
   .hero-photo {
-    min-height: 54vh;
+    min-height: 46vh;
+    margin-top: -4.5rem;
+    clip-path: polygon(0 72px, 100% 0, 100% 100%, 0 100%);
   }
   /* Collapse the primary nav to the drawer early enough that the header
      CTAs (esp. Donate) never overflow on iPad Pro / Surface Pro widths. */
@@ -1973,6 +2131,9 @@ section {
 }
 
 @media (max-width: 860px) {
+  .gck-message-grid {
+    grid-template-columns: 1fr;
+  }
   .quick-hub-grid {
     grid-template-columns: 1fr;
   }
