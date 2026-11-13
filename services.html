@@ -31,9 +31,9 @@
     </section>
 
     <!-- ============================================================
-     SERVICES / GATHERINGS
+     SERVICES / GATHERINGS: weekly timeline
      ============================================================ -->
-    <section class="section-light">
+    <section class="section-light svc-schedule">
       <div class="wrap">
         <div class="section-head">
           <span class="ribbon"
@@ -46,190 +46,196 @@
             weekly rhythm.
           </p>
         </div>
-      </div>
 
-      <div class="service-grid">
-        <div
-          class="service-strip"
-          style="background-image: url('images/sunday services.png')"
-        >
-          <div class="strip-day">Sunday</div>
-          <div class="strip-main">
-            <h3>Sunday Service</h3>
-            <span class="strip-time">10:00 AM</span>
+        <!-- Week at a glance -->
+        <nav class="week-bar" aria-label="Jump to a day">
+          <a href="#day-sun" class="week-day is-on"><b>Sun</b><small>2</small></a>
+          <a href="#day-mon" class="week-day is-on"><b>Mon</b><small>1</small></a>
+          <a href="#day-tue" class="week-day is-on"><b>Tue</b><small>1</small></a>
+          <span class="week-day"><b>Wed</b><small>&ndash;</small></span>
+          <a href="#day-thu" class="week-day is-on"><b>Thu</b><small>2</small></a>
+          <a href="#day-fri" class="week-day is-on"><b>Fri</b><small>1</small></a>
+          <span class="week-day"><b>Sat</b><small>&ndash;</small></span>
+        </nav>
+
+        <div class="svc-timeline">
+          <!-- SUNDAY -->
+          <div class="svc-day" id="day-sun">
+            <div class="svc-day-marker" aria-hidden="true">Sun</div>
+            <div class="svc-day-body">
+              <h3 class="svc-day-title">Sunday</h3>
+
+              <article class="svc-card svc-card--featured" data-reveal="right">
+                <div class="svc-card-media">
+                  <img src="images/sunday services.png" alt="Sunday Service flyer" />
+                </div>
+                <div class="svc-card-info">
+                  <div class="svc-meta">
+                    <span class="svc-time">10:00 AM</span>
+                    <span class="svc-mode">In person &amp; on Zoom</span>
+                  </div>
+                  <h4>Sunday Service</h4>
+                  <p class="svc-place">
+                    8601 Engleside Office Park, Alexandria, VA 22309
+                  </p>
+                  <a
+                    class="svc-join"
+                    href="https://us02web.zoom.us/j/92877756858"
+                    target="_blank"
+                    rel="noopener"
+                    >Join on Zoom <span aria-hidden="true">&rarr;</span></a
+                  >
+                </div>
+              </article>
+
+              <article class="svc-card" data-reveal="right" data-reveal-delay="120">
+                <div class="svc-card-media">
+                  <img src="images/homecare fellowship.png" alt="Home Care Fellowship flyer" />
+                </div>
+                <div class="svc-card-info">
+                  <div class="svc-meta">
+                    <span class="svc-time">5:30 PM</span>
+                  </div>
+                  <h4>Home Care Fellowship</h4>
+                  <a
+                    class="svc-join"
+                    href="https://us02web.zoom.us/j/92877756858"
+                    target="_blank"
+                    rel="noopener"
+                    >Join on Zoom <span aria-hidden="true">&rarr;</span></a
+                  >
+                </div>
+              </article>
+            </div>
           </div>
-          <a
-            class="join"
-            href="https://us02web.zoom.us/j/92877756858"
-            target="_blank"
-            rel="noopener"
-            >Join on Zoom
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M5 12h14M13 6l6 6-6 6" /></svg
-          ></a>
-        </div>
 
-        <div
-          class="service-strip"
-          style="background-image: url('images/homecare fellowship.png')"
-        >
-          <div class="strip-day">Sunday</div>
-          <div class="strip-main">
-            <h3>Home Care Fellowship</h3>
-            <span class="strip-time">5:30 PM</span>
+          <!-- MONDAY -->
+          <div class="svc-day" id="day-mon">
+            <div class="svc-day-marker" aria-hidden="true">Mon</div>
+            <div class="svc-day-body">
+              <h3 class="svc-day-title">Monday</h3>
+              <article class="svc-card" data-reveal="right">
+                <div class="svc-card-media">
+                  <img src="images/mondaybiblestudy.png" alt="Monday Bible Study flyer" />
+                </div>
+                <div class="svc-card-info">
+                  <div class="svc-meta">
+                    <span class="svc-time">6:20 PM</span>
+                  </div>
+                  <h4>Monday Bible Study</h4>
+                  <a
+                    class="svc-join"
+                    href="https://us02web.zoom.us/j/92877756858"
+                    target="_blank"
+                    rel="noopener"
+                    >Join on Zoom <span aria-hidden="true">&rarr;</span></a
+                  >
+                </div>
+              </article>
+            </div>
           </div>
-          <a
-            class="join"
-            href="https://us02web.zoom.us/j/92877756858"
-            target="_blank"
-            rel="noopener"
-            >Join on Zoom
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M5 12h14M13 6l6 6-6 6" /></svg
-          ></a>
-        </div>
 
-        <div
-          class="service-strip"
-          style="background-image: url('images/mondaybiblestudy.png')"
-        >
-          <div class="strip-day">Monday</div>
-          <div class="strip-main">
-            <h3>Monday Bible Study</h3>
-            <span class="strip-time">6:20 PM</span>
+          <!-- TUESDAY -->
+          <div class="svc-day" id="day-tue">
+            <div class="svc-day-marker" aria-hidden="true">Tue</div>
+            <div class="svc-day-body">
+              <h3 class="svc-day-title">Tuesday</h3>
+              <article class="svc-card" data-reveal="right">
+                <div class="svc-card-media">
+                  <img src="images/evangelism prayers.png" alt="Evangelism Prayer Night flyer" />
+                </div>
+                <div class="svc-card-info">
+                  <div class="svc-meta">
+                    <span class="svc-time">8:00 PM</span>
+                  </div>
+                  <h4>Evangelism Prayer Night</h4>
+                  <a
+                    class="svc-join"
+                    href="https://us02web.zoom.us/j/92877756858"
+                    target="_blank"
+                    rel="noopener"
+                    >Join on Zoom <span aria-hidden="true">&rarr;</span></a
+                  >
+                </div>
+              </article>
+            </div>
           </div>
-          <a
-            class="join"
-            href="https://us02web.zoom.us/j/92877756858"
-            target="_blank"
-            rel="noopener"
-            >Join on Zoom
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M5 12h14M13 6l6 6-6 6" /></svg
-          ></a>
-        </div>
 
-        <div
-          class="service-strip"
-          style="background-image: url('images/evangelism prayers.png')"
-        >
-          <div class="strip-day">Tuesday</div>
-          <div class="strip-main">
-            <h3>Evangelism Prayer Night</h3>
-            <span class="strip-time">8:00 PM</span>
+          <!-- THURSDAY: one shared flyer, two sessions -->
+          <div class="svc-day" id="day-thu">
+            <div class="svc-day-marker" aria-hidden="true">Thu</div>
+            <div class="svc-day-body">
+              <h3 class="svc-day-title">Thursday</h3>
+              <article class="svc-card" data-reveal="right">
+                <div class="svc-card-media">
+                  <img
+                    src="images/bible study for children and youth.png"
+                    alt="Children's and Youth Bible Study flyer"
+                  />
+                </div>
+                <div class="svc-card-info">
+                  <h4>Bible Study for Children &amp; Youth</h4>
+                  <div class="svc-sessions">
+                    <div class="svc-session">
+                      <span class="svc-time">5:30 PM</span>
+                      <div class="svc-session-text">
+                        <strong>Children's Bible Study</strong>
+                        <small>Zoom ID 928 7775 6858</small>
+                      </div>
+                      <a
+                        class="svc-join svc-join--sm"
+                        href="https://us02web.zoom.us/j/92877756858"
+                        target="_blank"
+                        rel="noopener"
+                        >Join <span aria-hidden="true">&rarr;</span></a
+                      >
+                    </div>
+                    <div class="svc-session">
+                      <span class="svc-time">7:00 PM</span>
+                      <div class="svc-session-text">
+                        <strong>Youth Bible Study</strong>
+                        <small>Zoom ID 836 4016 1111</small>
+                      </div>
+                      <a
+                        class="svc-join svc-join--sm"
+                        href="https://us02web.zoom.us/j/83640161111"
+                        target="_blank"
+                        rel="noopener"
+                        >Join <span aria-hidden="true">&rarr;</span></a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
           </div>
-          <a
-            class="join"
-            href="https://us02web.zoom.us/j/92877756858"
-            target="_blank"
-            rel="noopener"
-            >Join on Zoom
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M5 12h14M13 6l6 6-6 6" /></svg
-          ></a>
-        </div>
 
-        <div
-          class="service-strip"
-          style="background-image: url('images/bible study for children and youth.png')"
-        >
-          <div class="strip-day">Thursday</div>
-          <div class="strip-main">
-            <h3>Children's Bible Study</h3>
-            <span class="strip-time">5:30 PM</span>
+          <!-- FRIDAY -->
+          <div class="svc-day" id="day-fri">
+            <div class="svc-day-marker" aria-hidden="true">Fri</div>
+            <div class="svc-day-body">
+              <h3 class="svc-day-title">Friday</h3>
+              <article class="svc-card" data-reveal="right">
+                <div class="svc-card-media">
+                  <img src="images/revival broadcast.png" alt="Revival Broadcast flyer" />
+                </div>
+                <div class="svc-card-info">
+                  <div class="svc-meta">
+                    <span class="svc-time">6:20 PM</span>
+                  </div>
+                  <h4>Revival Broadcast</h4>
+                  <a
+                    class="svc-join"
+                    href="https://us02web.zoom.us/j/92877756858"
+                    target="_blank"
+                    rel="noopener"
+                    >Join on Zoom <span aria-hidden="true">&rarr;</span></a
+                  >
+                </div>
+              </article>
+            </div>
           </div>
-          <a
-            class="join"
-            href="https://us02web.zoom.us/j/92877756858"
-            target="_blank"
-            rel="noopener"
-            >Zoom ID 928 7775 6858
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M5 12h14M13 6l6 6-6 6" /></svg
-          ></a>
         </div>
-
-        <div
-          class="service-strip"
-          style="background-image: url('images/bible study for children and youth.png')"
-        >
-          <div class="strip-day">Thursday</div>
-          <div class="strip-main">
-            <h3>Youth Bible Study</h3>
-            <span class="strip-time">7:00 PM</span>
-          </div>
-          <a
-            class="join"
-            href="https://us02web.zoom.us/j/83640161111"
-            target="_blank"
-            rel="noopener"
-            >Zoom ID 836 4016 1111
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M5 12h14M13 6l6 6-6 6" /></svg
-          ></a>
-        </div>
-
-        <div
-          class="service-strip"
-          style="background-image: url('images/revival broadcast.png')"
-        >
-          <div class="strip-day">Friday</div>
-          <div class="strip-main">
-            <h3>Revival Broadcast</h3>
-            <span class="strip-time">6:20 PM</span>
-          </div>
-          <a
-            class="join"
-            href="https://us02web.zoom.us/j/92877756858"
-            target="_blank"
-            rel="noopener"
-            >Join on Zoom
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M5 12h14M13 6l6 6-6 6" /></svg
-          ></a>
-        </div>
-      </div>
-
-      <div class="wrap">
-        <p class="service-note">
-          <strong>Sunday Service location:</strong> 8601 Engleside Office Park,
-          Alexandria, VA 22309
-        </p>
       </div>
     </section>
 

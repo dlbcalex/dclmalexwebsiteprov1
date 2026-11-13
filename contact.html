@@ -33,39 +33,77 @@
     <!-- ============================================================
      NEWCOMERS
      ============================================================ -->
-    <section class="section-light">
+    <section class="section-light contact-welcome">
       <div class="wrap">
-        <div class="section-head">
-          <span class="ribbon"
-            ><span class="dot">&#9670;</span> New Here?
-            <span class="dot">&#9670;</span></span
-          >
-          <h2>Newcomer or looking to contact us? We'd like to hear from you!</h2>
-          <p>Please fill out our form so we can connect with you and help you feel right at home.</p>
-        </div>
-
-        <div class="newcomer-cta" id="newcomerForm">
-          <a
-            href="https://forms.gle/wAqigv24M6MeigBf7"
-            target="_blank"
-            rel="noopener"
-            class="btn btn-gold"
-            >Fill Out the Form</a
-          >
-        </div>
-
-        <div class="contact-grid">
-          <div class="contact-item">
-            <strong>Visit Us</strong>
-            <span>8601 Engleside Office Park<br />Alexandria, VA 22309</span>
+        <!-- Welcome card -->
+        <div class="newcomer-card" data-reveal>
+          <span class="newcomer-ring newcomer-ring--a" aria-hidden="true"></span>
+          <span class="newcomer-ring newcomer-ring--b" aria-hidden="true"></span>
+          <div class="newcomer-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 10.5 12 3l9 7.5" />
+              <path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5" />
+            </svg>
           </div>
-          <div class="contact-item">
-            <strong>Email Us</strong>
-            <span
-              ><a href="mailto:dlbcalexandriava@gmail.com"
-                >dlbcalexandriava@gmail.com</a
-              ></span
+          <div class="section-head on-dark">
+            <span class="ribbon"
+              ><span class="dot">&#9670;</span> New Here?
+              <span class="dot">&#9670;</span></span
             >
+            <h2>Newcomer or looking to contact us? We'd like to hear from you!</h2>
+            <p>Please fill out our form so we can connect with you and help you feel right at home.</p>
+          </div>
+
+          <div class="newcomer-cta" id="newcomerForm">
+            <a
+              href="https://forms.gle/wAqigv24M6MeigBf7"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-gold newcomer-btn"
+              >Fill Out the Form <span class="newcomer-btn-arrow">&rarr;</span></a
+            >
+          </div>
+        </div>
+
+        <!-- Contact cards -->
+        <div class="contact-cards">
+          <div class="contact-card" data-reveal="left" data-reveal-delay="150">
+            <div class="contact-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </div>
+            <div class="contact-card-body">
+              <strong>Visit Us</strong>
+              <span>8601 Engleside Office Park<br />Alexandria, VA 22309</span>
+              <a
+                class="contact-card-link"
+                href="https://www.google.com/maps/search/?api=1&amp;query=8601+Engleside+Office+Park+Alexandria+VA+22309"
+                target="_blank"
+                rel="noopener"
+                >Get directions &rarr;</a
+              >
+            </div>
+          </div>
+          <div class="contact-card contact-card--email" data-reveal="right" data-reveal-delay="250">
+            <div class="contact-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="m3 7 9 6 9-6" />
+              </svg>
+            </div>
+            <div class="contact-card-body">
+              <strong>Email Us</strong>
+              <span
+                ><a href="mailto:dlbcalexandriava@gmail.com"
+                  >dlbcalexandriava@gmail.com</a
+                ></span
+              >
+              <a class="contact-card-link" href="mailto:dlbcalexandriava@gmail.com"
+                >Send an email &rarr;</a
+              >
+            </div>
           </div>
         </div>
       </div>

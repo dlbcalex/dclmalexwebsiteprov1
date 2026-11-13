@@ -176,7 +176,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     );
     revealEls.forEach((el, i) => {
-      el.style.transitionDelay = `${Math.min(i % 4, 3) * 80}ms`;
+      // data-reveal-delay="ms" sets an explicit stagger; otherwise auto-stagger
+      const delay = el.dataset.revealDelay;
+      el.style.transitionDelay =
+        delay !== undefined ? `${delay}ms` : `${Math.min(i % 4, 3) * 80}ms`;
       io.observe(el);
     });
   } else {
@@ -223,46 +226,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  /* ---------- GCK September announcement (shows before the welcome modal) ---------- */
-  const gckModal = document.getElementById('gckAnnouncementModal');
-  if (gckModal) {
-    const GCK_SEEN_KEY = 'dlbc-gck-sept-2026-seen';
-    const gckClose = document.getElementById('gckAnnouncementClose');
-    const gckDismiss = document.getElementById('gckAnnouncementDismiss');
-    const gckCta = document.getElementById('gckAnnouncementCta');
-
-    const closeGckModal = () => {
-      gckModal.classList.remove('is-open');
-      gckModal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      queueWelcomeModal();
-    };
-
-    if (!localStorage.getItem(GCK_SEEN_KEY)) {
-      setTimeout(() => {
-        gckModal.classList.add('is-open');
-        gckModal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        localStorage.setItem(GCK_SEEN_KEY, 'true');
-      }, 1500);
-    } else {
-      queueWelcomeModal();
-    }
-
-    gckClose?.addEventListener('click', closeGckModal);
-    gckDismiss?.addEventListener('click', closeGckModal);
-    gckCta?.addEventListener('click', closeGckModal);
-    gckModal.addEventListener('click', (e) => {
-      if (e.target === gckModal) closeGckModal();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && gckModal.classList.contains('is-open')) {
-        closeGckModal();
-      }
-    });
-  } else {
-    queueWelcomeModal();
-  }
+  queueWelcomeModal();
 
   /* ---------- Gallery lightbox ---------- */
   const galleryLightbox = document.getElementById('galleryLightbox');

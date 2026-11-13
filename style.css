@@ -233,16 +233,29 @@ button:focus-visible {
   border-bottom: 1px solid var(--cream-dim);
   box-shadow: 0 2px 24px -10px rgba(13, 18, 38, 0.18);
 }
-.header-accent {
+/* Bottom accent between the nav bar and the page (solid blue, edge to edge) */
+.site-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
   height: 5px;
-  background: linear-gradient(90deg, var(--navy) 0%, var(--gold) 100%);
+  background: var(--navy);
+  pointer-events: none;
 }
 .site-header .wrap {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: clamp(1rem, 2.5vw, 2rem);
-  padding-block: 0.65rem;
+  padding-block: 1.05rem;
+}
+.site-header .brand {
+  flex-shrink: 0;
+}
+.site-header .brand img {
+  height: 46px;
 }
 .brand {
   display: flex;
@@ -273,9 +286,55 @@ button:focus-visible {
   letter-spacing: 0.26em;
   text-transform: uppercase;
 }
-/* Header brand text: logo-only on desktop, name shown on mobile (see 1024px query) */
+/* Desktop only: pull the logo (and the nav links that follow it) further left.
+   Shift = outer page margin + gutter, minus a 1.25rem safety gap from the screen
+   edge, capped at 3rem. header-cta stays pinned right via margin-left: auto.
+   Below 1025px (tablet/mobile nav) nothing changes. */
+@media (min-width: 1025px) {
+  .site-header .brand {
+    margin-left: calc(
+      -1 * clamp(0px, (100vw - var(--maxw)) / 2 + var(--gutter) - 1.25rem, 3rem)
+    );
+  }
+  /* Center the nav links in the space between the brand and the CTAs */
+  .site-header .nav-primary {
+    margin-inline: auto;
+  }
+  /* Nudge search + Visit Us + Donate slightly right (same edge safety gap) */
+  .site-header .wrap > .header-cta {
+    margin-left: 0;
+    margin-right: calc(
+      -1 * clamp(0px, (100vw - var(--maxw)) / 2 + var(--gutter) - 1.25rem, 1rem)
+    );
+  }
+}
+/* Nav bar font: the site's body font (same as all other text) for everything in
+   the header and mobile drawer (links, dropdowns, church name, search, CTAs) */
+.site-header,
+.mobile-nav {
+  font-family: var(--font-body);
+}
+/* Header brand text: church name beside the logo, all caps + bold
+   (mobile sizing in 1024px query) */
 .site-header .brand-text {
-  display: none;
+  display: flex;
+  gap: 0.1rem;
+}
+.site-header .brand-text strong {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.site-header .brand-text span {
+  font-family: var(--font-body);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy-soft);
 }
 
 .nav-primary {
@@ -286,32 +345,70 @@ button:focus-visible {
 .nav-primary > ul {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 .nav-primary a.nav-link {
   color: var(--nav-text);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-family: var(--font-body);
+  font-size: 0.77rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   padding: 0.4rem 0.1rem;
   position: relative;
   white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.nav-primary a.nav-link:hover {
+  color: var(--gold);
 }
 .nav-primary a.nav-link::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -4px;
-  height: 2px;
+  left: 15%;
+  right: 15%;
+  bottom: -3px;
+  height: 3px;
+  border-radius: 3px;
   background: var(--gold);
   transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.2s ease;
+  transform-origin: center;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .nav-primary a.nav-link:hover::after {
   transform: scaleX(1);
+}
+/* Narrower desktops: tighten link spacing so name + links + CTAs fit on one row */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .nav-primary > ul {
+    gap: 0.75rem;
+  }
+  .nav-primary a.nav-link {
+    font-size: 0.72rem;
+  }
+  .site-header .brand-text strong {
+    font-size: 0.8rem;
+  }
+  .site-header .brand-text span {
+    font-size: 0.66rem;
+  }
+}
+/* Small laptops: let the church name wrap to two lines to keep everything on one row */
+@media (min-width: 1025px) and (max-width: 1179px) {
+  .site-header .brand-text strong {
+    white-space: normal;
+    max-width: 8.5rem;
+    line-height: 1.15;
+  }
+  .nav-primary > ul {
+    gap: 0.4rem;
+  }
+  .nav-primary a.nav-link {
+    font-size: 0.66rem;
+  }
+  .site-header .wrap {
+    gap: 0.6rem;
+  }
 }
 
 .has-dropdown {
@@ -327,21 +424,23 @@ button:focus-visible {
   height: 7px;
   border-right: 1.5px solid currentColor;
   border-bottom: 1.5px solid currentColor;
-  transform: rotate(45deg);
-  margin-top: -3px;
+  transform: translateY(-2px) rotate(45deg);
   transition: transform 0.2s ease;
 }
-.has-dropdown:hover .caret {
-  transform: rotate(225deg);
-  margin-top: 3px;
+/* Flip the caret with transform only, so the link text never shifts */
+.has-dropdown:hover .caret,
+.has-dropdown:focus-within .caret {
+  transform: translateY(2px) rotate(225deg);
 }
 
+/* Menu opens just below the header's blue accent bar, above it in paint order */
 .dropdown {
   position: absolute;
-  top: calc(100% + 0.9rem);
+  top: calc(100% + 1.6rem);
   left: 50%;
+  z-index: 5;
   transform: translateX(-50%) translateY(6px);
-  min-width: 230px;
+  min-width: 280px;
   background: var(--white);
   border: 1px solid var(--cream-dim);
   border-top: 3px solid var(--gold);
@@ -351,6 +450,16 @@ button:focus-visible {
   visibility: hidden;
   transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
   box-shadow: 0 24px 48px -20px rgba(13, 18, 38, 0.35);
+}
+/* Invisible hover bridge across the gap between the link and the menu,
+   so the menu doesn't close while the mouse travels down to it */
+.dropdown::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 1.9rem;
 }
 .has-dropdown:hover .dropdown,
 .has-dropdown:focus-within .dropdown {
@@ -505,52 +614,98 @@ button:focus-visible {
    HERO
    ============================================================ */
 .hero {
+  /* width of the photo side; the fade + slideshow side takes the rest */
+  --hero-photo-w: 58%;
   position: relative;
   margin: 0;
   padding-block: 0;
   background: var(--navy);
   overflow: hidden;
 }
-.hero-grid {
-  display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
-  min-height: 94vh;
-  align-items: stretch;
-}
-.hero-text {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
-  padding: clamp(2.5rem, 5vw, 4.5rem);
-}
+/* Church photo spans the full hero, behind the text and the slideshow window */
 .hero-media-bg {
   position: absolute;
   inset: 0;
+  overflow: hidden;
 }
+/* Blurred, stretched copy of the church photo covers the whole frame behind
+   the main photo, so the space to the right is filled */
+.hero-media-bg::before {
+  content: '';
+  position: absolute;
+  inset: -40px;
+  background: url('images/dlalexchurchva.JPG') right center / 100% 100%
+    no-repeat;
+  filter: blur(14px) saturate(1.15) brightness(0.95);
+}
+/* Zoomed-out church photo, flush to the left edge and sized to the hero's
+   height; its right edge fades into the blurred fill */
+/* Church photo: flush left, covering the left ~64% of the hero (the "normal"
+   side, behind the text). Its right edge fades into the blurred fill, which
+   is where the slideshow window sits. */
 .hero-bg-img {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  left: 0;
+  width: var(--hero-photo-w, 64%);
   height: 100%;
+  max-width: none;
   object-fit: cover;
   object-position: center 30%;
   filter: saturate(1.1) contrast(1.05);
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 86%, transparent 100%);
 }
 .hero-media-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(173, 210, 255, 0.4);
+  /* much lighter blue tint (less fog), plus a soft navy shade on the left for text legibility */
+  background: linear-gradient(
+      90deg,
+      rgba(13, 18, 38, 0.38) 0%,
+      rgba(13, 18, 38, 0.12) 50%,
+      rgba(13, 18, 38, 0.02) 100%
+    ),
+    rgba(173, 210, 255, 0.1);
+}
+/* Two zones that line up with the background: text over the photo (left
+   64%), slideshow centered in the blurred side (right 36%). The text keeps
+   the usual page-content left edge. */
+.hero-grid.wrap {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: var(--hero-photo-w, 64%) 1fr;
+  align-items: center;
+  gap: 0;
+  max-width: none;
+  min-height: 90vh;
+  padding-block: clamp(3rem, 7vw, 5rem);
+  padding-inline: 0;
+}
+.hero-grid.wrap > .hero-text {
+  padding-left: max(var(--gutter), (100vw - var(--maxw)) / 2 + var(--gutter));
+  padding-right: clamp(1.5rem, 3vw, 3rem);
 }
 .hero-text-inner {
   position: relative;
   z-index: 2;
 }
+
+/* Slideshow window: small, bright blue bordered, click-through */
 .hero-photo {
   position: relative;
+  justify-self: center;
+  width: calc(100% - 2.5rem);
+  max-width: 440px;
+  aspect-ratio: 4 / 3;
+  border: 4px solid var(--navy);
+  border-radius: 18px;
   overflow: hidden;
+  background: var(--navy-soft);
+  box-shadow: 0 0 0 6px rgba(47, 128, 237, 0.25),
+    0 28px 60px -20px rgba(13, 18, 38, 0.6);
 }
 .hero-media {
   position: absolute;
@@ -573,16 +728,16 @@ button:focus-visible {
 }
 .hero-arrow {
   position: absolute;
-  top: auto;
-  bottom: 14%;
+  top: 50%;
+  margin-top: -19px;
   z-index: 3;
-  width: 48px;
-  height: 48px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(13, 18, 38, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 50%;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -593,48 +748,49 @@ button:focus-visible {
 }
 .hero-arrow:hover {
   opacity: 1;
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--navy);
   transform: translateX(3px);
 }
 .hero-arrow-prev {
-  left: clamp(1rem, 4vw, 2.5rem);
+  left: 0.75rem;
 }
 .hero-arrow-prev:hover {
   transform: translateX(-3px);
 }
 .hero-arrow-next {
-  right: clamp(1rem, 4vw, 2.5rem);
+  right: 0.75rem;
 }
 .hero-arrow svg {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
 }
+
 .hero-eyebrow {
   display: inline-flex;
   align-items: flex-start;
-  gap: 0.6rem;
-  max-width: 34ch;
+  gap: 0.7rem;
+  max-width: 40ch;
   color: var(--white);
-  font-size: 0.76rem;
+  font-size: clamp(0.82rem, 1.2vw, 1rem);
   font-weight: 700;
   letter-spacing: 0.1em;
   line-height: 1.4;
   text-transform: uppercase;
   text-shadow: 0 1px 6px rgba(13, 18, 38, 0.4);
-  margin-bottom: 1.3rem;
+  margin-bottom: 1.4rem;
 }
 .hero-eyebrow::before {
   content: '';
   flex-shrink: 0;
-  width: 18px;
+  width: 22px;
   height: 2px;
-  margin-top: 0.5em;
+  margin-top: 0.55em;
   background: var(--gold);
 }
 .hero h1 {
   font-family: var(--font-display);
   color: var(--white);
-  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  font-size: clamp(2.6rem, 5.4vw, 5rem);
   font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.01em;
@@ -650,20 +806,67 @@ button:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-top: 1.8rem;
+  margin-top: 2rem;
 }
+/* Rounder main hero buttons (scoped to the hero only) */
+.hero .hero-actions .btn {
+  border-radius: 999px;
+  padding-inline: 2rem;
+}
+
+/* Hero entrance: formal fade + fly-in on page load */
+@keyframes heroFlyIn {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes heroWindowIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-eyebrow,
+.hero h1,
+.hero-actions {
+  animation: heroFlyIn 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-eyebrow {
+  animation-delay: 0.15s;
+}
+.hero h1 {
+  animation-delay: 0.32s;
+}
+.hero-actions {
+  animation-delay: 0.52s;
+}
+.hero-photo {
+  animation: heroWindowIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
+}
+
+/* Blue strip: three items spread evenly across the full width */
 .hero-meta-strip {
   position: relative;
   z-index: 2;
   background: linear-gradient(120deg, var(--navy) 0%, var(--navy-soft) 100%);
 }
 .hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2.2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
   padding-block: 1.4rem;
 }
 .hero-meta div {
+  justify-self: center;
   padding-left: 1.4rem;
   border-left: 2px solid var(--gold);
 }
@@ -679,16 +882,60 @@ button:focus-visible {
   font-size: 0.78rem;
   letter-spacing: 0.04em;
 }
+/* Strip icons: PC only (hidden on tablets/phones) */
+.meta-icon {
+  display: none;
+}
+@media (min-width: 1025px) {
+  .hero-meta div {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.85rem;
+    align-items: center;
+  }
+  .hero-meta div strong {
+    grid-column: 2;
+    align-self: end;
+  }
+  .hero-meta div span {
+    grid-column: 2;
+    align-self: start;
+  }
+  .meta-icon {
+    display: block;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+    fill: none;
+    stroke: var(--white);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
 
 /* ============================================================
    Church services showcase (homepage tile grid)
    ============================================================ */
-.homepage section.services-showcase {
+.homepage section.services-showcase.section-navy {
   padding-block: clamp(1.6rem, 3vw, 2.4rem);
 }
+.services-showcase {
+  overflow-x: clip; /* keep the fly-ins from causing sideways scroll */
+}.services-showcase .section-head {
+  margin-bottom: 0;
+}
+/* Bento lineup: Sunday Service as a tall featured tile on the left,
+   the other six in a compact 3 x 2 block beside it */
 .services-tile-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: 1.35fr repeat(3, 1fr);
+  grid-auto-rows: 150px;
   gap: 0.8rem;
   padding-inline: var(--gutter);
   max-width: var(--maxw);
@@ -696,15 +943,39 @@ button:focus-visible {
 }
 .services-tile {
   position: relative;
-  display: block;
-  min-height: 240px;
-  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 0;
+  border-radius: 12px;
   overflow: hidden;
   background-size: cover;
   background-position: center;
-  padding: 1.3rem;
+  padding: 1rem 1.1rem;
   color: var(--white);
-  transition: background-size 0.5s ease;
+  transition: background-size 0.5s ease, box-shadow 0.3s ease;
+}
+.services-tile:hover {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85);
+}
+.services-tile--featured {
+  grid-row: span 2;
+  padding: 1.5rem 1.6rem;
+}
+.services-tile.services-tile--featured h3 {
+  font-size: 1.9rem;
+}
+.services-tile.services-tile--featured > span:last-of-type {
+  font-size: 1.05rem;
+}
+/* Tiles rise in with a slight scale, staggered via data-reveal-delay */
+.services-tile[data-reveal='rise'] {
+  transform: translateY(36px) scale(0.96);
+  transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    background-size 0.5s ease, box-shadow 0.3s ease;
+}
+.services-tile[data-reveal='rise'].is-visible {
+  transform: none;
 }
 .services-tile::before {
   content: '';
@@ -731,7 +1002,7 @@ button:focus-visible {
 .services-tile h3 {
   position: relative;
   font-family: var(--font-display);
-  font-size: 1.3rem;
+  font-size: 1.05rem;
   font-weight: 800;
   text-transform: uppercase;
   line-height: 1.2;
@@ -740,7 +1011,7 @@ button:focus-visible {
 .services-tile > span:last-of-type {
   position: relative;
   display: block;
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -907,6 +1178,64 @@ button:focus-visible {
   font-size: 0.92rem;
   margin-bottom: 1.3rem;
   max-width: 26ch;
+}
+
+/* ---------- Quick hub: its own background strip ----------
+   Deep midnight-navy band with a very faint fine grid; Events/Services as
+   crisp white cards, Give Online as a featured red card */
+.quick-hub {
+  position: relative;
+  border-bottom: none;
+  background: linear-gradient(
+        rgba(255, 255, 255, 0.045) 1px,
+        transparent 1px
+      )
+      0 0 / 44px 44px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px) 0 0 /
+      44px 44px,
+    linear-gradient(160deg, #0f1c38 0%, #152a52 100%);
+}
+.quick-hub .quick-hub-grid {
+  gap: clamp(1rem, 2.2vw, 1.6rem);
+  align-items: stretch;
+}
+.quick-hub .quick-col {
+  position: relative;
+  padding: clamp(1.4rem, 2.4vw, 2rem);
+  border-radius: 16px;
+  background: var(--white);
+  box-shadow: 0 26px 50px -24px rgba(0, 0, 0, 0.55);
+  transition: opacity 0.6s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+.quick-hub .quick-col:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 34px 60px -24px rgba(0, 0, 0, 0.65);
+}
+/* Featured Give card: bright blue, white text, white button */
+.quick-hub .quick-col-give {
+  padding-top: clamp(1.4rem, 2.4vw, 2rem);
+  border: none;
+  color: var(--white);
+  background: linear-gradient(155deg, var(--navy) 0%, var(--navy-soft) 100%);
+  box-shadow: 0 26px 50px -22px rgba(47, 128, 237, 0.55);
+}
+.quick-hub .quick-col-give h3 {
+  color: var(--white);
+}
+.quick-hub .quick-col-give p {
+  color: rgba(255, 255, 255, 0.92);
+}
+.quick-hub .quick-col-give .quick-col-bar {
+  background: var(--white);
+}
+.quick-hub .quick-col-give .btn-gold {
+  background: var(--gold);
+  color: var(--white);
+}
+.quick-hub .quick-col-give .btn-gold:hover {
+  background: var(--wine);
+  color: var(--white);
+  box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.45);
 }
 
 /* ============================================================
@@ -1105,9 +1434,12 @@ section {
 }
 
 /* ---------- Location Pastor welcome ---------- */
+.pastor-welcome-section {
+  overflow-x: clip; /* keep the fly-in from causing sideways scroll */
+}
 .pastor-welcome {
   display: grid;
-  grid-template-columns: 1.15fr 1.3fr;
+  grid-template-columns: 0.8fr 1.3fr;
   gap: clamp(2.5rem, 5vw, 4.5rem);
   align-items: center;
 }
@@ -1119,8 +1451,9 @@ section {
 .pastor-welcome-photo img {
   width: 100%;
   height: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1.08;
   object-fit: cover;
+  object-position: center 18%;
 }
 .pastor-welcome-title {
   font-family: var(--font-display);
@@ -1337,11 +1670,28 @@ section {
 /* ---------- Doctrine marquee ---------- */
 .doctrine-marquee {
   overflow: hidden;
+  /* room for the shadows + hover lift, and soft fade at both edges */
+  padding-block: 0.9rem 1.6rem;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
 }
 .doctrine-track {
   display: flex;
+  align-items: stretch;
   width: max-content;
-  gap: 1rem;
+  gap: 1.1rem;
   animation: doctrine-scroll 95s linear infinite;
 }
 .doctrine-track:hover {
@@ -1356,25 +1706,378 @@ section {
   }
 }
 .doctrine-card {
+  position: relative;
   flex: 0 0 auto;
-  width: 240px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: var(--white);
-  border: 1px solid var(--gold);
-  border-radius: var(--radius);
-  padding: 1.8rem 1.5rem;
+  border-radius: 16px;
+  padding: 2.1rem 1.5rem 1.7rem;
   text-align: center;
+  overflow: hidden;
+  box-shadow: 0 18px 36px -22px rgba(0, 0, 0, 0.55);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* solid red accent bar along the top */
+.doctrine-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--gold);
+  transition: height 0.3s ease;
+}
+/* small red diamond above the title, echoing the section ribbons */
+.doctrine-card strong::before {
+  content: '\25C6';
+  display: block;
+  margin-bottom: 0.7rem;
+  font-size: 0.8rem;
+  color: var(--gold);
+}
+.doctrine-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 46px -22px rgba(0, 0, 0, 0.65);
+}
+.doctrine-card:hover::before {
+  height: 8px;
 }
 .doctrine-card strong {
   display: block;
   font-family: var(--font-display);
   color: var(--ink);
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 0.55rem;
 }
 .doctrine-card span {
   color: var(--ink-70);
-  font-size: 0.8rem;
-  line-height: 1.45;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   Services page: week-at-a-glance bar + weekly timeline
+   ============================================================ */
+.svc-schedule {
+  overflow-x: clip; /* keep the fly-ins from causing sideways scroll */
+}
+.week-bar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0 auto clamp(2.5rem, 5vw, 3.5rem);
+}
+.week-day {
+  width: 70px;
+  padding: 0.7rem 0 0.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  border-radius: 14px;
+  background: var(--cream-dim);
+  color: var(--ink-40);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.week-day b {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.week-day small {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.week-day.is-on {
+  background: linear-gradient(150deg, var(--navy) 0%, var(--navy-soft) 100%);
+  color: var(--white);
+  box-shadow: 0 12px 24px -14px rgba(28, 95, 192, 0.9);
+}
+.week-day.is-on small::after {
+  content: ' gathering';
+}
+.week-day.is-on:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 30px -14px rgba(28, 95, 192, 0.95);
+}
+/* "2 gathering" -> plural where needed */
+.week-bar a[href='#day-sun'] small::after,
+.week-bar a[href='#day-thu'] small::after {
+  content: ' gatherings';
+}
+.week-day.is-on small {
+  font-size: 0.58rem;
+  letter-spacing: 0.02em;
+  opacity: 0.9;
+}
+
+.svc-timeline {
+  position: relative;
+  max-width: 1020px;
+  margin-inline: auto;
+}
+/* the vertical line that threads the days together */
+.svc-timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 31px;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    var(--navy) 0%,
+    rgba(47, 128, 237, 0.25) 100%
+  );
+}
+.svc-day {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 1.8rem);
+  margin-bottom: clamp(2rem, 4vw, 2.8rem);
+  scroll-margin-top: 100px;
+}
+.svc-day:last-child {
+  margin-bottom: 0;
+}
+.svc-day-marker {
+  position: sticky;
+  top: 100px;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--navy);
+  color: var(--navy-soft);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 6px var(--white), 0 10px 22px -12px rgba(28, 95, 192, 0.7);
+}
+.svc-day-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+  font-weight: 800;
+  color: var(--ink);
+  margin: 1rem 0 1rem;
+}
+
+.svc-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  margin-bottom: 1.2rem;
+  background: var(--white);
+  border: 1px solid #e3e8f1;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px -28px rgba(13, 18, 38, 0.45);
+  transition: opacity 0.9s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+.svc-schedule .svc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 55px -26px rgba(13, 18, 38, 0.5);
+}
+.svc-card:last-child {
+  margin-bottom: 0;
+}
+/* featured Sunday Service: red edge + label */
+.svc-card--featured {
+  border-color: rgba(215, 38, 61, 0.35);
+}
+.svc-card--featured::before {
+  content: 'Main Service';
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  z-index: 1;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.5);
+}
+.svc-card-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+}
+.svc-card-media img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.svc-card:hover .svc-card-media img {
+  transform: scale(1.04);
+}
+.svc-card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: clamp(1.3rem, 2.6vw, 1.9rem);
+}
+.svc-card-info h4 {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.svc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.svc-time,
+.svc-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.svc-time {
+  background: #e8f1fe;
+  color: var(--navy-soft);
+}
+.svc-time::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--navy);
+}
+.svc-mode {
+  background: #fdecef;
+  color: var(--wine);
+}
+.svc-place {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-70);
+}
+.svc-join {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.4rem;
+  padding: 0.7rem 1.3rem;
+  border-radius: 999px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 0.84rem;
+  font-weight: 700;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+.svc-join span {
+  transition: transform 0.25s ease;
+}
+.svc-join:hover {
+  background: var(--navy-soft);
+  box-shadow: 0 12px 24px -12px rgba(28, 95, 192, 0.9);
+}
+.svc-join:hover span {
+  transform: translateX(4px);
+}
+.svc-join--sm {
+  margin-top: 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.78rem;
+}
+/* Thursday: two sessions inside one card */
+.svc-sessions {
+  width: 100%;
+  margin-top: 0.3rem;
+}
+.svc-session {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.8rem;
+  padding-block: 0.8rem;
+  border-top: 1px solid var(--cream-dim);
+}
+.svc-session-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.svc-session-text strong {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.svc-session-text small {
+  font-size: 0.76rem;
+  color: var(--ink-70);
+}
+@media (max-width: 760px) {
+  .svc-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .svc-day {
+    grid-template-columns: 46px minmax(0, 1fr);
+  }
+  .svc-day-marker {
+    width: 46px;
+    height: 46px;
+    font-size: 0.64rem;
+    border-width: 2px;
+  }
+  .svc-timeline::before {
+    left: 22px;
+  }
+  .svc-day-title {
+    margin-top: 0.6rem;
+  }
+  .week-bar {
+    gap: 0.35rem;
+    flex-wrap: nowrap;
+  }
+  .week-day {
+    width: 40px;
+    padding: 0.55rem 0 0.5rem;
+    border-radius: 10px;
+  }
+  .week-day b {
+    font-size: 0.68rem;
+  }
+  .week-day small,
+  .week-day.is-on small {
+    display: none;
+  }
+  .svc-session {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .svc-session .svc-join--sm {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
 }
 
 /* ---------- Services / gatherings grid ---------- */
@@ -1656,6 +2359,151 @@ section {
   margin-top: 2rem;
 }
 
+/* ---------- Give page intro: text + scripture card ---------- */
+.give-intro {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  text-align: left;
+  padding-block: clamp(3rem, 6vw, 4.6rem);
+}
+.give-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+.give-intro .give-intro-copy h2 {
+  max-width: 20ch;
+  margin-inline: 0;
+  font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+  font-weight: 800;
+  line-height: 1.12;
+  margin-top: 0.4rem;
+}
+.give-intro .give-intro-copy p {
+  max-width: 52ch;
+  margin-inline: 0;
+  line-height: 1.7;
+}
+.give-intro .hero-actions {
+  justify-content: flex-start;
+  margin-top: 1.8rem;
+}
+.give-intro-btn {
+  border-radius: 999px;
+  padding-inline: 1.6rem;
+}
+.give-intro .btn-outline {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: var(--white);
+}
+.give-intro .btn-outline:hover {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--navy-soft);
+}
+/* scripture card */
+.give-verse {
+  position: relative;
+  margin: 0;
+  padding: 2.2rem 2rem 1.9rem;
+  background: var(--white);
+  border-radius: 22px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+.give-verse::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--gold);
+}
+/* oversized decorative quote mark */
+.give-verse::after {
+  content: '\201C';
+  position: absolute;
+  right: 1.2rem;
+  top: -0.6rem;
+  font-family: Georgia, serif;
+  font-size: 9rem;
+  line-height: 1;
+  color: rgba(47, 128, 237, 0.12);
+  pointer-events: none;
+}
+.give-verse-icon {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.2rem;
+  border-radius: 16px;
+  background: linear-gradient(145deg, var(--gold) 0%, var(--wine) 100%);
+  box-shadow: 0 12px 22px -10px rgba(215, 38, 61, 0.8);
+  animation: iconBob 3.2s ease-in-out infinite;
+}
+.give-verse-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.give-verse blockquote {
+  position: relative;
+  margin: 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.give-verse figcaption {
+  margin-top: 1.1rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy-soft);
+}
+/* slowly drifting outline rings (same motion as the Contact page) */
+.give-ring {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+.give-ring--a {
+  width: 300px;
+  height: 300px;
+  top: -190px;
+  left: -170px;
+  animation: ringDrift 10s ease-in-out infinite;
+}
+.give-ring--b {
+  width: 220px;
+  height: 220px;
+  bottom: -100px;
+  right: 6%;
+  border-style: dashed;
+  animation: ringDrift 12s ease-in-out infinite reverse;
+}
+/* land the "See Ways to Give" jump below the sticky header */
+#ways-to-give {
+  scroll-margin-top: 90px;
+}
+@media (max-width: 860px) {
+  .give-intro-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ---------- Ways to give ---------- */
 .give-heading {
   position: relative;
@@ -1812,6 +2660,213 @@ section {
   color: var(--wine);
 }
 
+/* ---------- Contact page: welcome card + contact cards ---------- */
+.contact-welcome {
+  overflow-x: clip; /* keep the side fly-ins from causing sideways scroll */
+}
+.newcomer-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: clamp(2.2rem, 5vw, 3.4rem) clamp(1.4rem, 4vw, 3rem);
+  border-radius: 24px;
+  text-align: center;
+  background: linear-gradient(150deg, var(--navy) 0%, var(--navy-soft) 100%);
+  box-shadow: 0 34px 70px -34px rgba(28, 95, 192, 0.75);
+}
+.newcomer-card .section-head {
+  margin-bottom: 1.8rem;
+  max-width: 600px;
+}
+.newcomer-card .section-head h2 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1.2;
+}
+/* slowly drifting outline rings for movement */
+.newcomer-ring {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+}
+.newcomer-ring--a {
+  width: 260px;
+  height: 260px;
+  top: -110px;
+  right: -70px;
+  animation: ringDrift 9s ease-in-out infinite;
+}
+.newcomer-ring--b {
+  width: 170px;
+  height: 170px;
+  bottom: -80px;
+  left: -50px;
+  border-style: dashed;
+  animation: ringDrift 11s ease-in-out infinite reverse;
+}
+@keyframes ringDrift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-18px, 14px) rotate(40deg);
+  }
+}
+.newcomer-icon {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 1.2rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  animation: iconBob 3.2s ease-in-out infinite;
+}
+.newcomer-icon svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@keyframes iconBob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.newcomer-card .newcomer-cta {
+  margin: 0;
+}
+/* pill CTA with a gentle attention pulse and a sliding arrow */
+.newcomer-btn {
+  border-radius: 999px;
+  padding: 0.95rem 2rem;
+  font-size: 1rem;
+  animation: ctaPulse 2.6s ease-out infinite;
+}
+.newcomer-btn-arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+.newcomer-btn:hover .newcomer-btn-arrow {
+  transform: translateX(5px);
+}
+.newcomer-btn:hover {
+  animation: none;
+}
+@keyframes ctaPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.3rem;
+  max-width: 880px;
+  margin: 2rem auto 0;
+}
+.contact-welcome .contact-card {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  padding: 1.5rem;
+  background: var(--white);
+  border: 1px solid #e3e8f1;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px -28px rgba(13, 18, 38, 0.4);
+  transition: opacity 0.9s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+.contact-welcome .contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 28px 55px -26px rgba(13, 18, 38, 0.45);
+}
+.contact-card-icon {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(145deg, var(--gold) 0%, var(--wine) 100%);
+  box-shadow: 0 10px 20px -10px rgba(215, 38, 61, 0.8);
+  transition: transform 0.3s ease;
+}
+.contact-card--email .contact-card-icon {
+  background: linear-gradient(145deg, var(--navy) 0%, var(--navy-soft) 100%);
+  box-shadow: 0 10px 20px -10px rgba(47, 128, 237, 0.8);
+}
+.contact-card:hover .contact-card-icon {
+  transform: rotate(-8deg) scale(1.06);
+}
+.contact-card-icon svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.contact-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+.contact-card-body strong {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.contact-card-body span,
+.contact-card-body span a {
+  color: var(--ink-70);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.contact-card-body span a:hover {
+  color: var(--wine);
+}
+.contact-card-link {
+  margin-top: 0.5rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy-soft);
+  transition: letter-spacing 0.25s ease, color 0.25s ease;
+}
+.contact-card-link:hover {
+  color: var(--gold);
+  letter-spacing: 0.12em;
+}
+@media (max-width: 640px) {
+  .contact-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---------- Connect / Stay Connected ---------- */
 .connect-groups {
   display: grid;
@@ -1920,6 +2975,120 @@ section {
   word-break: break-word;
 }
 
+/* ---------- Connect page: "Other ways to keep up" (light, so it doesn't
+   blend into the blue footer) ---------- */
+.connect-alt-section {
+  background: #f3f5f9;
+  border-top: 1px solid var(--cream-dim);
+}
+.connect-alt-section .connect-alt-grid {
+  max-width: 1100px;
+  gap: 1.3rem;
+}
+.connect-alt-section .connect-alt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.5rem 1.4rem;
+  background: var(--white);
+  border: 1px solid #e3e8f1;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px -28px rgba(13, 18, 38, 0.4);
+  overflow: hidden;
+  transition: opacity 0.6s ease, transform 0.3s ease, box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+/* thin colour bar that sweeps across the top on hover */
+.connect-alt-section .connect-alt::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--navy);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.connect-alt-section .connect-alt:hover {
+  transform: translateY(-6px);
+  border-color: transparent;
+  box-shadow: 0 28px 55px -26px rgba(13, 18, 38, 0.45);
+}
+.connect-alt-section .connect-alt:hover::before {
+  transform: scaleX(1);
+}
+.connect-alt-icon {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.1rem;
+  border-radius: 14px;
+  background: linear-gradient(145deg, var(--navy) 0%, var(--navy-soft) 100%);
+  box-shadow: 0 10px 20px -10px rgba(47, 128, 237, 0.8);
+  transition: transform 0.3s ease;
+}
+.connect-alt-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.connect-alt-section .connect-alt:hover .connect-alt-icon {
+  transform: rotate(-6deg) scale(1.06);
+}
+/* YouTube card gets a red icon + red sweep */
+.connect-alt--youtube .connect-alt-icon {
+  background: linear-gradient(145deg, var(--gold) 0%, var(--wine) 100%);
+  box-shadow: 0 10px 20px -10px rgba(215, 38, 61, 0.8);
+}
+.connect-alt-section .connect-alt--youtube::before {
+  background: var(--gold);
+}
+.connect-alt-section .connect-alt strong {
+  color: var(--ink);
+  font-size: 1.08rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+}
+.connect-alt-section .connect-alt span {
+  color: var(--ink-70);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+.connect-alt-go {
+  margin-top: auto;
+  padding-top: 1rem;
+  font-style: normal;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy-soft);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.connect-alt--youtube .connect-alt-go {
+  color: var(--gold);
+}
+.connect-alt-section .connect-alt:hover .connect-alt-go {
+  opacity: 1;
+  transform: none;
+}
+/* touch screens have no hover: always show the cue */
+@media (hover: none) {
+  .connect-alt-go {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Home-page "stay connected" band */
 .connect-band {
   background: linear-gradient(90deg, var(--navy) 0%, var(--navy-soft) 100%);
@@ -1942,6 +3111,141 @@ section {
 .connect-band-copy span {
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.95rem;
+}
+
+/* ---------- Connect band: bell + polished strip ---------- */
+.connect-band {
+  position: relative;
+  padding-block: 2.6rem;
+  background: repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.05) 0 2px,
+      transparent 2px 16px
+    ),
+    linear-gradient(90deg, var(--navy) 0%, var(--navy-soft) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+.connect-band-main {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  flex: 1 1 520px;
+  min-width: 0;
+}
+.connect-band-copy {
+  max-width: 62ch;
+}
+.connect-band-copy strong {
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+}
+.connect-band-copy span {
+  line-height: 1.6;
+}
+/* bell badge: white circle, blue bell that rings, red pulsing dot */
+.connect-bell {
+  position: relative;
+  flex: 0 0 auto;
+  width: 66px;
+  height: 66px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18),
+    0 16px 30px -14px rgba(0, 0, 0, 0.5);
+}
+.connect-bell svg {
+  width: 32px;
+  height: 32px;
+  fill: none;
+  stroke: var(--navy-soft);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform-origin: 50% 8%;
+  animation: bellRing 4s ease-in-out infinite;
+}
+@keyframes bellRing {
+  0%,
+  62%,
+  100% {
+    transform: rotate(0);
+  }
+  66% {
+    transform: rotate(16deg);
+  }
+  71% {
+    transform: rotate(-14deg);
+  }
+  76% {
+    transform: rotate(10deg);
+  }
+  81% {
+    transform: rotate(-6deg);
+  }
+  86% {
+    transform: rotate(3deg);
+  }
+}
+.connect-bell-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--white);
+}
+.connect-bell-dot::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: dotPing 2s ease-out infinite;
+}
+@keyframes dotPing {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+/* pill button with sliding arrow */
+.connect-band-btn {
+  border-radius: 999px;
+  padding: 0.95rem 1.9rem;
+  box-shadow: 0 14px 28px -14px rgba(0, 0, 0, 0.55);
+}
+.connect-band-arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+.connect-band-btn:hover .connect-band-arrow {
+  transform: translateX(5px);
+}
+@media (max-width: 640px) {
+  .connect-band-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .connect-bell {
+    width: 56px;
+    height: 56px;
+  }
+  .connect-bell svg {
+    width: 26px;
+    height: 26px;
+  }
 }
 
 /* ============================================================
@@ -2050,23 +3354,55 @@ section {
   opacity: 1;
   transform: translateY(0);
 }
+/* Directional fly-ins (formal, slower ease) */
+[data-reveal='left'],
+[data-reveal='right'] {
+  transition: opacity 0.9s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal='left'] {
+  transform: translateX(-48px);
+}
+[data-reveal='right'] {
+  transform: translateX(48px);
+}
+[data-reveal='left'].is-visible,
+[data-reveal='right'].is-visible {
+  transform: none;
+}
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
+  /* Hero on tablets/phones: stacks (text, then slideshow window beneath) over
+     a completely normal full background photo (no fade/blur) */
+  .hero-grid.wrap {
+    grid-template-columns: minmax(0, 1fr);
     min-height: auto;
+    gap: 2.2rem;
+    padding-block: 3.5rem 3rem;
+    padding-inline: var(--gutter);
   }
-  .hero-text {
-    min-height: 56vh;
-    padding-bottom: 5.5rem;
+  .hero-grid.wrap > .hero-text {
+    padding-inline: 0;
+  }
+  .hero-media-bg::before {
+    display: none;
+  }
+  /* completely normal photo on mobile: no tint, shade, fade or blur */
+  .hero-media-bg::after {
+    display: none;
+  }
+  .hero-bg-img {
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
   .hero-photo {
-    min-height: 46vh;
-    margin-top: -4.5rem;
-    clip-path: polygon(0 72px, 100% 0, 100% 100%, 0 100%);
+    justify-self: center;
+    width: 100%;
+    max-width: 520px;
   }
   /* Collapse the primary nav to the drawer early enough that the header
      CTAs (esp. Donate) never overflow on iPad Pro / Surface Pro widths. */
@@ -2084,10 +3420,27 @@ section {
     font-size: 0.7rem;
     letter-spacing: 0.01em;
     line-height: 1.2;
+    white-space: normal;
+  }
+  .site-header .brand {
+    flex-shrink: 1;
+    min-width: 0;
   }
   .site-header .brand-text span {
     font-size: 0.52rem;
     letter-spacing: 0.08em;
+  }
+  /* Services bento: featured tile across the top, the rest in two columns */
+  .services-tile-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 120px;
+  }
+  .services-tile--featured {
+    grid-column: 1 / -1;
+    grid-row: span 1;
+  }
+  .services-tile.services-tile--featured h3 {
+    font-size: 1.4rem;
   }
   .quick-hub-grid {
     grid-template-columns: 1fr 1fr;
@@ -2131,6 +3484,25 @@ section {
 }
 
 @media (max-width: 860px) {
+  /* Blue strip stays three across on tablets and phones, just smaller */
+  .hero-meta {
+    gap: 0.6rem;
+    padding-block: 0.9rem;
+  }
+  .hero-meta div {
+    justify-self: start;
+    padding-left: 0.55rem;
+  }
+  .hero-meta div strong {
+    font-size: clamp(0.62rem, 2.2vw, 0.88rem);
+  }
+  .hero-meta div span {
+    display: block;
+    font-size: clamp(0.52rem, 1.8vw, 0.7rem);
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+    margin-top: 0.15rem;
+  }
   .gck-message-grid {
     grid-template-columns: 1fr;
   }
@@ -2171,8 +3543,24 @@ section {
     margin-left: 0;
     gap: 1rem;
   }
-  .hero-meta {
-    gap: 1.4rem;
+  .hero-photo {
+    border-width: 3px;
+    border-radius: 14px;
+  }
+  .hero h1 {
+    font-size: clamp(2.1rem, 10vw, 2.8rem);
+  }
+  .hero .hero-actions .btn {
+    padding-inline: 1.5rem;
+  }
+  .services-tile {
+    padding: 0.8rem 0.9rem;
+  }
+  .services-tile h3 {
+    font-size: 0.88rem;
+  }
+  .services-tile > span:last-of-type {
+    font-size: 0.74rem;
   }
   .header-cta .btn-sm {
     display: none;
