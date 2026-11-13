@@ -813,6 +813,37 @@ button:focus-visible {
   border-radius: 999px;
   padding-inline: 2rem;
 }
+/* Thicker, easier-to-see "Watch Online" button (all screen sizes) */
+.hero .hero-actions .btn-outline {
+  border: 3px solid var(--white);
+  background: rgba(13, 18, 38, 0.32);
+  font-weight: 700;
+  box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.6);
+}
+.hero .hero-actions .btn-outline:hover {
+  border-color: var(--white);
+  background: rgba(13, 18, 38, 0.5);
+}
+/* PC: thin white outline + light frosted-glass look (mobile keeps the
+   thick 3px border and darker tint) */
+@media (min-width: 1025px) {
+  .hero .hero-actions .btn-outline {
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.85);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.24) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      0 8px 22px -12px rgba(0, 0, 0, 0.45);
+  }
+  .hero .hero-actions .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.28);
+  }
+}
 
 /* Hero entrance: formal fade + fly-in on page load */
 @keyframes heroFlyIn {
@@ -1205,11 +1236,27 @@ button:focus-visible {
   border-radius: 16px;
   background: var(--white);
   box-shadow: 0 26px 50px -24px rgba(0, 0, 0, 0.55);
-  transition: opacity 0.6s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  /* fade and slide share one smooth timing so the reveal doesn't jerk;
+     GPU-composited so phones don't repaint the big shadow every frame */
+  transition: opacity 0.7s ease-out,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
-.quick-hub .quick-col:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 34px 60px -24px rgba(0, 0, 0, 0.65);
+/* hover lift only on devices with a real mouse; on touch screens a tap
+   would trigger it mid-animation and make the card jump */
+@media (hover: hover) and (pointer: fine) {
+  .quick-hub .quick-col:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 34px 60px -24px rgba(0, 0, 0, 0.65);
+  }
+}
+@media (max-width: 860px) {
+  /* stacked on phones: lighter shadow, shorter stagger so cards don't lag */
+  .quick-hub .quick-col {
+    box-shadow: 0 16px 30px -20px rgba(0, 0, 0, 0.55);
+    transition-delay: 0s !important;
+  }
 }
 /* Featured Give card: bright blue, white text, white button */
 .quick-hub .quick-col-give {
