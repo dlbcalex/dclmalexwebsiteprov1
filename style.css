@@ -2941,6 +2941,231 @@ section {
 .connect-card .join:hover svg {
   transform: translateX(4px);
 }
+
+/* ---------- Connect page polish: chips, banner cards, help panel ---------- */
+.wa-section {
+  overflow-x: clip; /* keep the side fly-ins from causing sideways scroll */
+}
+.wa-section .section-head {
+  margin-bottom: 1.4rem;
+}
+/* what's shared in the groups, as chips */
+.wa-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+.wa-chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem 0.5rem 0.55rem;
+  border-radius: 999px;
+  background: var(--white);
+  border: 1px solid #dfe6f1;
+  box-shadow: 0 8px 18px -14px rgba(13, 18, 38, 0.5);
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 600;
+  animation: chipIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.wa-chips li::before {
+  content: '\2713';
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #25d366;
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+.wa-chips li:nth-child(2) { animation-delay: 0.06s; }
+.wa-chips li:nth-child(3) { animation-delay: 0.12s; }
+.wa-chips li:nth-child(4) { animation-delay: 0.18s; }
+.wa-chips li:nth-child(5) { animation-delay: 0.24s; }
+.wa-chips li:nth-child(6) { animation-delay: 0.3s; }
+.wa-chips li:nth-child(7) { animation-delay: 0.36s; }
+@keyframes chipIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.wa-welcome {
+  max-width: 58ch;
+  margin: 1.3rem auto clamp(2.2rem, 4vw, 3rem);
+  text-align: center;
+  color: var(--ink-70);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+/* group cards with a coloured banner and overlapping photo/flag */
+.wa-section .connect-groups {
+  gap: 1.6rem;
+  max-width: 940px;
+}
+.wa-section .connect-card {
+  position: relative;
+  overflow: hidden;
+  padding: 2.6rem 1.9rem 1.9rem;
+  border: 1px solid #e3e8f1;
+  border-radius: 20px;
+  box-shadow: 0 22px 46px -30px rgba(13, 18, 38, 0.5);
+  transition: opacity 0.9s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+.wa-section .connect-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 32px 60px -28px rgba(13, 18, 38, 0.55);
+}
+.connect-card-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+}
+.connect-card--general .connect-card-banner {
+  background: radial-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1.5px)
+      0 0 / 14px 14px,
+    linear-gradient(120deg, var(--navy) 0%, var(--navy-soft) 100%);
+}
+.connect-card--twi .connect-card-banner {
+  background: linear-gradient(
+    180deg,
+    #ce1126 0 33.33%,
+    #fcd116 33.33% 66.66%,
+    #006b3f 66.66% 100%
+  );
+}
+.wa-section .connect-card-icon {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  border: 4px solid var(--white);
+  box-shadow: 0 10px 24px -10px rgba(13, 18, 38, 0.55);
+  transition: transform 0.35s ease;
+}
+.wa-section .connect-card:hover .connect-card-icon {
+  transform: scale(1.06) rotate(-4deg);
+}
+.wa-section .connect-card h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+.wa-section .connect-card p {
+  line-height: 1.65;
+}
+.wa-section .connect-tag {
+  background: #e8f1fe;
+  color: var(--navy-soft);
+}
+.connect-card--twi .connect-tag {
+  background: #e6f3ec;
+  color: #006b3f;
+}
+/* WhatsApp-green join buttons */
+.wa-section .connect-card .join.wa-join {
+  margin-top: 0.4rem;
+  padding: 0.8rem 1.4rem 0.8rem 1.1rem;
+  background: #25d366;
+  color: var(--white);
+  font-weight: 700;
+  box-shadow: 0 12px 24px -12px rgba(18, 140, 126, 0.8);
+}
+.wa-section .connect-card .join.wa-join:hover {
+  background: #128c7e;
+}
+.wa-section .connect-card .join .wa-join-icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.wa-section .connect-card .join:hover .wa-join-icon {
+  transform: none;
+}
+
+/* help panel: compact blue strip instead of a tall empty block */
+.wa-help {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.2rem, 3vw, 2.2rem);
+  max-width: 940px;
+  margin-inline: auto;
+  padding: clamp(1.6rem, 3vw, 2.2rem) clamp(1.4rem, 3vw, 2.4rem);
+  border-radius: 22px;
+  color: var(--white);
+  background: linear-gradient(140deg, var(--navy) 0%, var(--navy-soft) 100%);
+  box-shadow: 0 28px 55px -30px rgba(28, 95, 192, 0.8);
+}
+.wa-help-icon {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  animation: iconBob 3.2s ease-in-out infinite;
+}
+.wa-help-icon svg {
+  width: 32px;
+  height: 32px;
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.wa-help .ribbon {
+  margin: 0 0 0.7rem;
+  color: var(--white);
+}
+.wa-help h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.wa-help p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+.wa-help-btn {
+  border-radius: 999px;
+  padding: 0.9rem 1.6rem;
+  white-space: nowrap;
+}
+.wa-help-btn span {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+.wa-help-btn:hover span {
+  transform: translateX(4px);
+}
+@media (max-width: 760px) {
+  .wa-help {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+  }
+}
 .connect-alt-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));

@@ -33,7 +33,7 @@
     <!-- ============================================================
      WHATSAPP GROUPS
      ============================================================ -->
-    <section class="section-light">
+    <section class="section-light wa-section">
       <div class="wrap">
         <div class="section-head">
           <span class="ribbon"
@@ -42,16 +42,28 @@
           >
           <h2>Join our WhatsApp groups</h2>
           <p>
-            These groups are the church's main media outlet: weekly
-            activities, service reminders, prayer points, event flyers, photos,
-            audio messages, and important announcements all go out here first.
-            Whether you've worshipped with us for years or you're visiting for
-            the first time, there's a place for you.
+            These groups are the church's main media outlet. All of this goes
+            out here first:
           </p>
         </div>
 
+        <ul class="wa-chips" aria-label="What's shared in the groups">
+          <li>Weekly activities</li>
+          <li>Service reminders</li>
+          <li>Prayer points</li>
+          <li>Event flyers</li>
+          <li>Photos</li>
+          <li>Audio messages</li>
+          <li>Important announcements</li>
+        </ul>
+        <p class="wa-welcome">
+          Whether you've worshipped with us for years or you're visiting for the
+          first time, there's a place for you.
+        </p>
+
         <div class="connect-groups">
-          <div class="connect-card">
+          <div class="connect-card connect-card--general" data-reveal="left">
+            <div class="connect-card-banner" aria-hidden="true"></div>
             <img
               class="connect-card-icon"
               src="images/dclmalex.jpg"
@@ -66,11 +78,17 @@
               is for you.
             </p>
             <a
-              class="join"
+              class="join wa-join"
               href="https://chat.whatsapp.com/C5M3pHAqAtgJ7xI38cgOKP?s=sh&amp;p=i&amp;mlu=4&amp;ilr=4"
               target="_blank"
               rel="noopener"
-              >Join on WhatsApp
+            >
+              <svg class="wa-join-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"
+                />
+              </svg>
+              Join on WhatsApp
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -81,7 +99,12 @@
             ></a>
           </div>
 
-          <div class="connect-card">
+          <div
+            class="connect-card connect-card--twi"
+            data-reveal="right"
+            data-reveal-delay="120"
+          >
+            <div class="connect-card-banner" aria-hidden="true"></div>
             <img
               class="connect-card-icon"
               src="images/ghana.png"
@@ -95,11 +118,17 @@
               Twi. You're welcome to be in both groups.
             </p>
             <a
-              class="join"
+              class="join wa-join"
               href="https://chat.whatsapp.com/JjV9pu4q32I63eJM2ytpUZ?s=sh&amp;p=i&amp;mlu=4&amp;ilr=4"
               target="_blank"
               rel="noopener"
-              >Join on WhatsApp
+            >
+              <svg class="wa-join-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"
+                />
+              </svg>
+              Join on WhatsApp
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -116,31 +145,39 @@
     <!-- ============================================================
      REQUEST TO BE ADDED / NO WHATSAPP
      ============================================================ -->
-    <section class="section-light" style="padding-top: 0">
+    <section class="section-light wa-help-section" style="padding-top: 0">
       <div class="wrap">
-        <div class="section-head">
-          <span class="ribbon"
-            ><span class="dot">&#9670;</span> Need Help Joining?
-            <span class="dot">&#9670;</span></span
-          >
-          <h2>No WhatsApp, or not added yet?</h2>
-          <p>
-            If the links above don't work for you, you don't use WhatsApp, or
-            you're new and haven't been added to a group, fill out this short
-            form. Someone from the church will reach out and make sure you're
-            included.
-          </p>
-        </div>
-
-        <div class="newcomer-cta">
-          <!-- Same Google Form as the "Fill Out the Form" button on contact.html -->
-          <a
-            href="https://forms.gle/wAqigv24M6MeigBf7"
-            target="_blank"
-            rel="noopener"
-            class="btn btn-gold"
-            >Request to Be Added</a
-          >
+        <div class="wa-help" data-reveal>
+          <div class="wa-help-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M9.5 9.2a2.6 2.6 0 0 1 5 .9c0 1.7-2.5 2.3-2.5 3.6" />
+              <path d="M12 17h.01" />
+            </svg>
+          </div>
+          <div class="wa-help-copy">
+            <span class="ribbon"
+              ><span class="dot">&#9670;</span> Need Help Joining?
+              <span class="dot">&#9670;</span></span
+            >
+            <h2>No WhatsApp, or not added yet?</h2>
+            <p>
+              If the links above don't work for you, you don't use WhatsApp, or
+              you're new and haven't been added to a group, fill out this short
+              form. Someone from the church will reach out and make sure you're
+              included.
+            </p>
+          </div>
+          <div class="wa-help-cta">
+            <!-- Same Google Form as the "Fill Out the Form" button on contact.html -->
+            <a
+              href="https://forms.gle/wAqigv24M6MeigBf7"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-gold wa-help-btn"
+              >Request to Be Added <span aria-hidden="true">&rarr;</span></a
+            >
+          </div>
         </div>
       </div>
     </section>
