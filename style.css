@@ -813,36 +813,24 @@ button:focus-visible {
   border-radius: 999px;
   padding-inline: 2rem;
 }
-/* Thicker, easier-to-see "Watch Online" button (all screen sizes) */
+/* "Watch Online": thin white outline + light frosted-glass look
+   (all screen sizes) */
 .hero .hero-actions .btn-outline {
-  border: 3px solid var(--white);
-  background: rgba(13, 18, 38, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.85);
   font-weight: 700;
-  box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.24) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  backdrop-filter: blur(10px) saturate(1.3);
+  -webkit-backdrop-filter: blur(10px) saturate(1.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 8px 22px -12px rgba(0, 0, 0, 0.45);
 }
 .hero .hero-actions .btn-outline:hover {
   border-color: var(--white);
-  background: rgba(13, 18, 38, 0.5);
-}
-/* PC: thin white outline + light frosted-glass look (mobile keeps the
-   thick 3px border and darker tint) */
-@media (min-width: 1025px) {
-  .hero .hero-actions .btn-outline {
-    border-width: 1px;
-    border-color: rgba(255, 255, 255, 0.85);
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.24) 0%,
-      rgba(255, 255, 255, 0.08) 100%
-    );
-    backdrop-filter: blur(10px) saturate(1.3);
-    -webkit-backdrop-filter: blur(10px) saturate(1.3);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45),
-      0 8px 22px -12px rgba(0, 0, 0, 0.45);
-  }
-  .hero .hero-actions .btn-outline:hover {
-    background: rgba(255, 255, 255, 0.28);
-  }
+  background: rgba(255, 255, 255, 0.28);
 }
 
 /* Hero entrance: formal fade + fly-in on page load */
@@ -3756,24 +3744,55 @@ section {
 }
 
 @media (max-width: 860px) {
-  /* Blue strip stays three across on tablets and phones, just smaller */
+  /* Blue strip on phones/tablets: stacked frosted-glass rows with icons,
+     readable text sizes */
   .hero-meta {
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.6rem;
-    padding-block: 0.9rem;
+    padding-block: 1.2rem;
   }
   .hero-meta div {
-    justify-self: start;
-    padding-left: 0.55rem;
+    justify-self: stretch;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 0.9rem;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-left: 3px solid var(--gold);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
   }
   .hero-meta div strong {
-    font-size: clamp(0.62rem, 2.2vw, 0.88rem);
+    grid-column: 2;
+    align-self: end;
+    font-size: 1.02rem;
+    line-height: 1.25;
   }
   .hero-meta div span {
+    grid-column: 2;
+    align-self: start;
     display: block;
-    font-size: clamp(0.52rem, 1.8vw, 0.7rem);
-    line-height: 1.3;
+    font-size: 0.84rem;
+    line-height: 1.35;
     letter-spacing: 0.01em;
-    margin-top: 0.15rem;
+    margin-top: 0.1rem;
+  }
+  .meta-icon {
+    display: block;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 40px;
+    height: 40px;
+    padding: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+    fill: none;
+    stroke: var(--white);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
   .gck-message-grid {
     grid-template-columns: 1fr;
