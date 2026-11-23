@@ -5858,7 +5858,7 @@ body {
 }
 
 /* ============================================================
-   FOOTER polish: soft glow + faint cross watermark, icon details,
+   FOOTER polish: soft glow, icon details,
    pill hovers (same overall size)
    ============================================================ */
 .site-footer {
@@ -5876,20 +5876,6 @@ body {
   height: 420px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, transparent 65%);
-  pointer-events: none;
-}
-/* faint cross watermark, bottom left */
-.site-footer::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  left: 4%;
-  bottom: -40px;
-  width: 150px;
-  height: 190px;
-  opacity: 0.07;
-  background: linear-gradient(var(--white), var(--white)) center / 26px 100% no-repeat,
-    linear-gradient(var(--white), var(--white)) center 32% / 100% 26px no-repeat;
   pointer-events: none;
 }
 .footer-top .brand {
@@ -5938,7 +5924,7 @@ body {
 .footer-bottom > span {
   color: rgba(255, 255, 255, 0.78);
 }
-/* keep copyright + details on one row on wide desktops; watermark on the right */
+/* keep copyright + details on one row on wide desktops; */
 @media (min-width: 1101px) and (max-width: 1239px) {
   .footer-bottom {
     flex-direction: column;
@@ -5955,10 +5941,4 @@ body {
     gap: 0.4rem 1.05rem;
     flex-wrap: nowrap;
   }
-}
-.site-footer::after {
-  left: auto;
-  right: 6%;
-  bottom: -70px;
-  opacity: 0.05;
 }
