@@ -5775,3 +5775,19 @@ body {
     min-width: 0;
   }
 }
+
+/* Contact page: Visit / Call / Email cards in one row on desktop */
+.contact-cards--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1080px;
+}
+.contact-card--phone .contact-card-icon {
+  background: linear-gradient(145deg, var(--navy-soft) 0%, #143f86 100%);
+  box-shadow: 0 10px 20px -10px rgba(28, 95, 192, 0.8);
+}
+@media (max-width: 960px) {
+  .contact-cards--three {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 560px;
+  }
+}
