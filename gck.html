@@ -23,17 +23,39 @@
   <body>
     <div id="header-placeholder"></div>
 
-    <section class="page-banner gck-banner">
+    <section class="page-banner gck-banner gck-hero">
       <div class="wrap">
         <div class="breadcrumb">
           <a href="index.html">Home</a> / <a href="events.html">Events</a> / GCK
         </div>
-        <img
-          src="images/gcklogo.png"
-          alt="Global Crusade with Kumuyi logo"
-          class="gck-banner-logo"
-        />
+        <span class="gck-hero-badge">
+          <img
+            src="images/gcklogo.png"
+            alt="Global Crusade with Kumuyi logo"
+            class="gck-banner-logo"
+          />
+        </span>
         <h1>Global Crusade with Kumuyi (GCK)</h1>
+        <p class="gck-hero-sub">
+          A monthly worldwide evangelistic crusade with Pastor Dr. William F.
+          Kumuyi, livestreamed into homes and churches across the nations.
+        </p>
+        <div class="gck-hero-actions">
+          <a
+            href="https://www.youtube.com/@DCLMHQ/streams"
+            target="_blank"
+            rel="noopener"
+            class="btn gck-btn-solid"
+            >Watch the Latest Stream</a
+          >
+          <a
+            href="https://www.youtube.com/@TheGCKHQ"
+            target="_blank"
+            rel="noopener"
+            class="btn gck-btn-ghost"
+            >GCK YouTube Channel</a
+          >
+        </div>
       </div>
     </section>
 
@@ -41,7 +63,7 @@
       <!-- ============================================================
        WHAT IS GCK
        ============================================================ -->
-      <section class="section-light">
+      <section class="section-light gck-intro">
         <div class="wrap">
           <div class="section-head">
             <span class="ribbon"
@@ -59,19 +81,18 @@
               livestreamed audience.
             </p>
           </div>
-
-          <div class="contact-grid">
-            <div class="contact-item">
+          <div class="gck-stats">
+            <div class="gck-stat" data-reveal="rise" data-reveal-delay="0">
               <strong data-count-to="180" data-count-suffix="+">180+</strong>
               <span>Nations reached through GCK broadcasts</span>
             </div>
-            <div class="contact-item">
+            <div class="gck-stat" data-reveal="rise" data-reveal-delay="120">
               <strong data-count-to="600000" data-count-suffix="+"
                 >600,000+</strong
               >
               <span>Salvations recorded</span>
             </div>
-            <div class="contact-item">
+            <div class="gck-stat" data-reveal="rise" data-reveal-delay="240">
               <strong
                 data-count-to="5.9"
                 data-count-decimals="1"
@@ -89,7 +110,7 @@
        ============================================================ -->
       <section
         class="section-navy gck-format-section"
-        style="background-image: linear-gradient(120deg, rgba(15, 86, 102, 0.88) 0%, rgba(8, 46, 56, 0.85) 100%), url('images/gckkumuyi2.jpeg'); background-size: cover; background-position: center 25%;"
+        style="background-image: linear-gradient(120deg, rgba(15, 86, 102, 0.9) 0%, rgba(8, 46, 56, 0.88) 100%), url('images/gckkumuyi2.jpeg'); background-size: cover; background-position: center 25%;"
       >
         <div class="wrap">
           <div class="section-head on-dark">
@@ -99,15 +120,63 @@
             >
             <h2>A month-long crusade, every month</h2>
             <p>
-              Each GCK crusade runs from Thursday through Tuesday, with
-              evening sessions of preaching, worship, and altar calls
-              broadcast live and translated into multiple languages.
-              Alongside the main crusade, GCK hosts concurrent Ministers
-              &amp; Professionals Conferences, youth programming, medical
-              outreach, and follow-up discipleship for new converts,
-              reaching congregations like ours in Alexandria, VA as part of
+              Reaching congregations like ours in Alexandria, VA as part of
               one global movement.
             </p>
+          </div>
+          <div class="gck-features">
+            <article class="gck-feature" data-reveal="rise" data-reveal-delay="0">
+              <span class="gck-feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <path d="M16 2v4M8 2v4M3 10h18" />
+                </svg>
+              </span>
+              <h3>Thursday through Tuesday</h3>
+              <p>
+                Each crusade runs over six days, with evening sessions of
+                preaching, worship, and altar calls.
+              </p>
+            </article>
+            <article class="gck-feature" data-reveal="rise" data-reveal-delay="110">
+              <span class="gck-feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" />
+                </svg>
+              </span>
+              <h3>Live in many languages</h3>
+              <p>
+                Every session is broadcast live and translated into multiple
+                languages for the nations.
+              </p>
+            </article>
+            <article class="gck-feature" data-reveal="rise" data-reveal-delay="220">
+              <span class="gck-feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </span>
+              <h3>Ministers &amp; Professionals</h3>
+              <p>
+                Concurrent Ministers &amp; Professionals Conferences run
+                alongside the main crusade.
+              </p>
+            </article>
+            <article class="gck-feature" data-reveal="rise" data-reveal-delay="330">
+              <span class="gck-feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z" />
+                </svg>
+              </span>
+              <h3>Youth, outreach &amp; follow-up</h3>
+              <p>
+                Youth programming, medical outreach, and discipleship for new
+                converts.
+              </p>
+            </article>
           </div>
         </div>
       </section>
@@ -125,6 +194,80 @@
             millions of believers worldwide.
           </h3>
           <span>Image courtesy of GCK</span>
+        </div>
+      </section>
+
+      <!-- ============================================================
+       RECENT MESSAGES
+       ============================================================ -->
+      <section class="section-light gck-messages-section">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="ribbon"
+              ><span class="dot">&#9670;</span> Recent Messages
+              <span class="dot">&#9670;</span></span
+            >
+            <h2>Catch up on recent GCK messages</h2>
+          </div>
+          <div class="gck-message-grid">
+            <a
+              class="message-card"
+              href="https://www.youtube.com/watch?v=GG0JEbniy2Q"
+              target="_blank"
+              rel="noopener"
+              data-reveal="rise"
+              data-reveal-delay="0"
+            >
+              <span class="message-thumb">
+                <img src="images/gckseptedition.jpg" alt="Global Crusade with Kumuyi, September Edition" loading="lazy" />
+                <span class="message-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z" /></svg>
+                </span>
+              </span>
+              <h3>
+                The Perpetual Satisfaction of Hungry, Thirsty Souls by the God
+                of all Possibilities
+              </h3>
+            </a>
+            <a
+              class="message-card"
+              href="https://www.youtube.com/watch?v=e5XnfSFWrD0"
+              target="_blank"
+              rel="noopener"
+              data-reveal="rise"
+              data-reveal-delay="120"
+            >
+              <span class="message-thumb">
+                <img src="images/gckseptedition.jpg" alt="Global Crusade with Kumuyi, September Edition" loading="lazy" />
+                <span class="message-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z" /></svg>
+                </span>
+              </span>
+              <h3>
+                The Priceless Possession of Great Inheritance for Meek Men
+                through the Meek Mediator
+              </h3>
+            </a>
+            <a
+              class="message-card"
+              href="https://www.youtube.com/watch?v=hAUQg70Jd70"
+              target="_blank"
+              rel="noopener"
+              data-reveal="rise"
+              data-reveal-delay="240"
+            >
+              <span class="message-thumb">
+                <img src="images/gckseptedition.jpg" alt="Global Crusade with Kumuyi, September Edition" loading="lazy" />
+                <span class="message-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z" /></svg>
+                </span>
+              </span>
+              <h3>
+                Total Renewal Through Christ's Mediatorial Ministry in the
+                Heavenly Places
+              </h3>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -150,68 +293,58 @@
               recently aired.
             </p>
           </div>
-
-          <div class="resource-grid">
-            <div class="resource-card">
-              <div class="icon">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
+          <div class="gck-watch-grid">
+            <a
+              class="gck-watch-card"
+              href="https://www.youtube.com/@TheGCKHQ"
+              target="_blank"
+              rel="noopener"
+              data-reveal="rise"
+              data-reveal-delay="0"
+            >
+              <span class="gck-watch-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
                   <path d="m10 8 6 4-6 4V8Z" />
                   <rect x="2" y="4" width="20" height="16" rx="3" />
                 </svg>
-              </div>
+              </span>
               <h3>GCK YouTube Channel</h3>
               <p>
-                The official Global Crusade with Kumuyi channel: full
-                crusade sessions, testimonies, and highlights.
+                The official Global Crusade with Kumuyi channel: full crusade
+                sessions, testimonies, and highlights.
               </p>
-              <a
-                class="text-link"
-                href="https://www.youtube.com/@TheGCKHQ"
-                target="_blank"
-                rel="noopener"
-                >Watch on YouTube</a
-              >
-            </div>
-
-            <div class="resource-card">
-              <div class="icon">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"
-                  />
-                  <path
-                    d="M6.5 17H20v5H6.5A2.5 2.5 0 0 1 4 19.5v0A2.5 2.5 0 0 1 6.5 17Z"
-                  />
+              <span class="gck-watch-link">Watch on YouTube &rarr;</span>
+            </a>
+            <a
+              class="gck-watch-card"
+              href="https://www.youtube.com/@DCLMHQ/streams"
+              target="_blank"
+              rel="noopener"
+              data-reveal="rise"
+              data-reveal-delay="140"
+            >
+              <span class="gck-watch-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="2" />
+                  <path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4" />
+                  <path d="M19.1 4.9a10 10 0 0 1 0 14.2M4.9 19.1a10 10 0 0 1 0-14.2" />
                 </svg>
-              </div>
+              </span>
               <h3>Latest Livestream</h3>
               <p>
                 Catch the most recent GCK broadcast and service on the
-                official Deeper Life Christian Life Ministry (DCLM HQ)
-                streams page.
+                official Deeper Life Christian Life Ministry (DCLM HQ) streams
+                page.
               </p>
-              <a
-                class="text-link"
-                href="https://www.youtube.com/@DCLMHQ/streams"
-                target="_blank"
-                rel="noopener"
-                >Watch the Latest Stream</a
-              >
-            </div>
+              <span class="gck-watch-link">Watch the Latest Stream &rarr;</span>
+            </a>
+          </div>
+          <div class="gck-local-cta" data-reveal>
+            <p>
+              Want reminders for the next crusade? Join our church WhatsApp
+              groups for updates.
+            </p>
+            <a href="connect.html" class="btn gck-btn-solid">Get Connected</a>
           </div>
         </div>
       </section>

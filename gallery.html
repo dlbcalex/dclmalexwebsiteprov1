@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Picture Gallery | Deeper Life Bible Church</title>
+    <meta
+      name="description"
+      content="Picture gallery of Deeper Life Bible Church, Alexandria VA: worship, fellowship, and life together."
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Dancing+Script:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="images/dclmlogo.png" />
+  </head>
+  <body class="gallery-page">
+    <div id="header-placeholder"></div>
+
+    <section class="page-banner">
+      <div class="wrap">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a> / Picture Gallery
+        </div>
+        <h1>Picture Gallery</h1>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     FEATURED VIEWER: large photo with previous / next + thumbnails
+     ============================================================ -->
+    <section class="section-light gallery-feature">
+      <div class="wrap">
+        <div class="gallery-stage" data-reveal>
+          <div class="gallery-stage-frame">
+            <img src="images/dclmalex6.jpg" alt="Church photo" id="stageImage" />
+          </div>
+          <button class="stage-arrow stage-prev" type="button" aria-label="Previous photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M19 12H5M11 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button class="stage-arrow stage-next" type="button" aria-label="Next photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+        </div>
+        <div class="stage-thumbs" id="stageThumbs" aria-label="Choose a photo"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     ALL PHOTOS GRID (click any to open it larger)
+     ============================================================ -->
+    <section class="section-light gallery-all">
+      <div class="wrap">
+        <div class="gallery-grid gallery-grid--page">
+          <button class="gallery-item" type="button" data-src="images/dclmalex6.jpg" data-alt="Church photo" data-reveal="rise">
+            <img src="images/dclmalex6.jpg" alt="Church photo" loading="lazy" />
+          </button>
+          <button class="gallery-item" type="button" data-src="images/dclmalex4.jpg" data-alt="Church photo" data-reveal="rise">
+            <img src="images/dclmalex4.jpg" alt="Church photo" loading="lazy" />
+          </button>
+          <button class="gallery-item" type="button" data-src="images/dclmalex3.jpg" data-alt="Church photo" data-reveal="rise">
+            <img src="images/dclmalex3.jpg" alt="Church photo" loading="lazy" />
+          </button>
+          <button class="gallery-item" type="button" data-src="images/sendoff1.JPG" data-alt="Church photo" data-reveal="rise">
+            <img src="images/sendoff1.JPG" alt="Church photo" loading="lazy" />
+          </button>
+          <button class="gallery-item" type="button" data-src="images/dclmalex10.JPG" data-alt="Church photo" data-reveal="rise">
+            <img src="images/dclmalex10.JPG" alt="Church photo" loading="lazy" />
+          </button>
+          <button class="gallery-item" type="button" data-src="images/moredclmalex.jpg" data-alt="Church photo" data-reveal="rise">
+            <img src="images/moredclmalex.jpg" alt="Church photo" loading="lazy" />
+          </button>
+          <button class="gallery-item" type="button" data-src="images/sendoff2.JPG" data-alt="Church photo" data-reveal="rise">
+            <img src="images/sendoff2.JPG" alt="Church photo" loading="lazy" />
+          </button>
+          <button class="gallery-item" type="button" data-src="images/pstnsiahandmaesther.jpg" data-alt="Church photo" data-reveal="rise">
+            <img src="images/pstnsiahandmaesther.jpg" alt="Church photo" loading="lazy" />
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- ============================================================
+     GALLERY LIGHTBOX (with previous / next)
+     ============================================================ -->
+    <div class="lightbox-overlay" id="galleryLightbox" aria-hidden="true">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+        &times;
+      </button>
+      <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" type="button" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M11 18l-6-6 6-6" />
+        </svg>
+      </button>
+      <figure class="lightbox-figure">
+        <img alt="" id="lightboxImage" />
+      </figure>
+      <button class="lightbox-arrow lightbox-next" id="lightboxNext" type="button" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </button>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

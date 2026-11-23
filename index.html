@@ -27,12 +27,27 @@
      HERO
      ============================================================ -->
     <section class="hero">
-      <!-- Church photo spans the entire hero -->
-      <div class="hero-media-bg">
+      <!-- Background rotator: Mount Vernon photo, then the Alexandria video,
+           then the church photo, cross-fading in a loop under a white tint -->
+      <div class="hero-media-bg hero-rotator" aria-hidden="true">
         <img
-          src="images/dlalexchurchva.JPG"
-          alt="Deeper Life Bible Church Alexandria, VA"
-          class="hero-bg-img"
+          src="images/mountvernon.jpg"
+          alt=""
+          class="hero-bg-layer is-active"
+          data-hold="7000"
+        />
+        <video
+          class="hero-bg-layer"
+          src="images/alexandria-scene.mp4"
+          muted
+          playsinline
+          preload="auto"
+        ></video>
+        <img
+          src="images/45-scaled.jpg"
+          alt=""
+          class="hero-bg-layer"
+          data-hold="7000"
         />
       </div>
       <div class="wrap hero-grid">
@@ -56,7 +71,7 @@
             </div>
           </div>
         </div>
-        <!-- Slideshow: small blue-bordered window overlaying the church photo -->
+        <!-- Slideshow: small blue-bordered window overlaying the background -->
         <div class="hero-photo">
           <div class="hero-media">
             <img
@@ -92,29 +107,62 @@
           </button>
         </div>
       </div>
+      <!-- Blue strip: four quick-info cards -->
       <div class="hero-meta-strip">
-        <div class="wrap hero-meta">
-          <div>
-            <svg class="meta-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="4" width="18" height="18" rx="2" />
-              <path d="M16 2v4M8 2v4M3 10h18" />
-            </svg>
-            <strong>1973</strong><span>Founded in Lagos, Nigeria</span>
+        <div class="wrap strip-cards">
+          <div class="strip-card">
+            <span class="strip-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2v6M9 5h6" />
+                <path d="M5 22V12l7-4 7 4v10" />
+                <path d="M10 22v-5h4v5" />
+              </svg>
+            </span>
+            <span class="strip-body">
+              <span class="strip-label">Sunday Service</span>
+              <strong>Sundays &middot; 10:00 AM</strong>
+              <span class="strip-sub">In person &amp; on Zoom</span>
+            </span>
           </div>
-          <div>
-            <svg class="meta-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-            <strong>Dr. W. F. Kumuyi</strong><span>General Superintendent</span>
+          <div class="strip-card">
+            <span class="strip-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M2 5.5A2.5 2.5 0 0 1 4.5 3H10a2 2 0 0 1 2 2v16a2 2 0 0 0-2-2H2z" />
+                <path d="M22 5.5A2.5 2.5 0 0 0 19.5 3H14a2 2 0 0 0-2 2v16a2 2 0 0 1 2-2h8z" />
+              </svg>
+            </span>
+            <span class="strip-body">
+              <span class="strip-label">Bible Study</span>
+              <strong>Mondays &middot; 6:20 PM</strong>
+              <span class="strip-sub">Systematic teaching of the Word</span>
+            </span>
           </div>
-          <div>
-            <svg class="meta-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            <strong>8601 Engleside</strong
-            ><span>Office Park, Alexandria VA</span>
+          <div class="strip-card">
+            <span class="strip-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4.9 19.1a10 10 0 0 1 0-14.2M19.1 4.9a10 10 0 0 1 0 14.2" />
+                <path d="M7.8 16.2a6 6 0 0 1 0-8.4M16.2 7.8a6 6 0 0 1 0 8.4" />
+                <circle cx="12" cy="12" r="2" />
+              </svg>
+            </span>
+            <span class="strip-body">
+              <span class="strip-label">Revival Broadcast</span>
+              <strong>Fridays &middot; 6:20 PM</strong>
+              <span class="strip-sub">Join us every Friday evening</span>
+            </span>
+          </div>
+          <div class="strip-card">
+            <span class="strip-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </span>
+            <span class="strip-body">
+              <span class="strip-label">Location</span>
+              <strong>8601 Engleside Office Park</strong>
+              <span class="strip-sub">Alexandria, VA 22309</span>
+            </span>
           </div>
         </div>
       </div>
@@ -174,56 +222,171 @@
     </section>
 
     <!-- ============================================================
-     QUICK ACCESS HUB
+     OUR LEADERS
      ============================================================ -->
-    <section class="quick-hub">
-      <div class="wrap quick-hub-grid">
-        <div class="quick-col" data-reveal data-reveal-delay="0">
-          <span class="quick-col-bar"></span>
-          <h3>Events</h3>
-          <div class="quick-item">
-            <span class="quick-badge">Upcoming</span>
-            <div class="quick-item-body">
-              <a href="events.html" class="quick-item-title"
-                >Regional Conventions &amp; Retreats</a
-              >
-              <span class="quick-item-sub">See the full 2026 calendar</span>
-            </div>
-          </div>
-          <a href="events.html" class="quick-col-link">View Full Calendar &rarr;</a>
-        </div>
-
-        <div class="quick-col" data-reveal data-reveal-delay="120">
-          <span class="quick-col-bar"></span>
-          <h3>Services</h3>
-          <div class="quick-item">
-            <span class="quick-badge">Sunday</span>
-            <div class="quick-item-body">
-              <a href="services.html" class="quick-item-title">Sunday Service</a>
-              <span class="quick-item-sub">10:00 AM &middot; In Person &amp; Zoom</span>
-            </div>
-          </div>
-          <div class="quick-item">
-            <span class="quick-badge">Weekly</span>
-            <div class="quick-item-body">
-              <a href="services.html" class="quick-item-title"
-                >Home Care Fellowship</a
-              >
-              <span class="quick-item-sub">Sunday, 5:30 PM</span>
-            </div>
-          </div>
-          <a href="services.html" class="quick-col-link">View All Services &rarr;</a>
-        </div>
-
-        <div class="quick-col quick-col-give" data-reveal data-reveal-delay="240">
-          <span class="quick-col-bar"></span>
-          <h3>Give Online</h3>
+    <section id="leaders" class="leaders-section">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="ribbon"
+            ><span class="dot">&#9670;</span> Our Leadership
+            <span class="dot">&#9670;</span></span
+          >
+          <h2>The shepherds who lead us</h2>
           <p>
-            Partner with us in the work of the Gospel through Zelle or by
-            mail.
+            From our General Superintendent to our Location Pastor, meet the
+            leaders God has set over this ministry.
           </p>
-          <a href="give.html" class="btn btn-gold">Give Now</a>
         </div>
+        <div class="leaders-grid">
+          <article class="leader-tile" data-reveal="rise" data-reveal-delay="0">
+            <div class="leader-tile-photo leader-tile-photo--cutout">
+              <img
+                src="images/kumuyiyes.png"
+                alt="Pastor Dr. William F. Kumuyi"
+                loading="lazy"
+              />
+            </div>
+            <div class="leader-tile-body">
+              <span class="leader-tile-role">General Superintendent</span>
+              <h3>Pastor Dr. William F. Kumuyi</h3>
+              <p>
+                Founder of Deeper Life Bible Church, overseeing the global
+                ministry since 1973.
+              </p>
+              <a href="pastor-kumuyi.html" class="leader-tile-btn"
+                >Learn more <span aria-hidden="true">&rarr;</span></a
+              >
+            </div>
+          </article>
+          <article class="leader-tile" data-reveal="rise" data-reveal-delay="140">
+            <div class="leader-tile-photo leader-tile-photo--cutout">
+              <img
+                src="images/psdada.png"
+                alt="Pastor Dr. Michael A. Dada"
+                loading="lazy"
+              />
+            </div>
+            <div class="leader-tile-body">
+              <span class="leader-tile-role">Regional Overseer</span>
+              <h3>Pastor Dr. Michael A. Dada</h3>
+              <p>
+                Leading Deeper Life Bible Church across the Eastern United
+                States.
+              </p>
+              <a href="pastor-dada.html" class="leader-tile-btn"
+                >Learn more <span aria-hidden="true">&rarr;</span></a
+              >
+            </div>
+          </article>
+          <article class="leader-tile" data-reveal="rise" data-reveal-delay="280">
+            <div class="leader-tile-photo">
+              <img
+                src="images/pstjamesamara.jpg"
+                alt="Pastor Dr. James Amara"
+                loading="lazy"
+              />
+            </div>
+            <div class="leader-tile-body">
+              <span class="leader-tile-role">Location Pastor</span>
+              <h3>Pastor Dr. James Amara</h3>
+              <p>
+                Shepherding our church family here in Alexandria, Virginia.
+              </p>
+              <a href="pastor-amara.html" class="leader-tile-btn"
+                >Learn more <span aria-hidden="true">&rarr;</span></a
+              >
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     UPCOMING EVENTS (from the church Google Calendar)
+     Each card hides itself once its data-end date has passed (main.js).
+     ============================================================ -->
+    <section class="events-hub">
+      <div class="wrap">
+        <div class="events-hub-head" data-reveal>
+          <div>
+            <span class="ribbon"
+              ><span class="dot">&#9670;</span> What&rsquo;s Coming Up
+              <span class="dot">&#9670;</span></span
+            >
+            <h2>Upcoming events at DLBC Alexandria</h2>
+          </div>
+          <a href="events.html" class="events-hub-btn">Full calendar</a>
+        </div>
+        <div class="event-cards">
+          <a
+            href="events.html"
+            class="event-card"
+            data-reveal="rise"
+            data-reveal-delay="0"
+            data-end="2026-11-26"
+          >
+            <span class="event-card-art event-card-art--thanks" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 22V10" />
+                <path d="M12 10c-3 0-5-2-5-5 3 0 5 2 5 5z" />
+                <path d="M12 10c3 0 5-2 5-5-3 0-5 2-5 5z" />
+                <path d="M12 16c-3 0-5-2-5-5 3 0 5 2 5 5z" />
+                <path d="M12 16c3 0 5-2 5-5-3 0-5 2-5 5z" />
+              </svg>
+            </span>
+            <span class="event-date"><b>26</b><small>Nov</small></span>
+            <span class="event-card-body">
+              <span class="event-tag">On location</span>
+              <strong>Special Thanksgiving Service</strong>
+              <span class="event-sub">Thursday, November 26</span>
+            </span>
+          </a>
+          <a
+            href="events.html"
+            class="event-card"
+            data-reveal="rise"
+            data-reveal-delay="120"
+            data-end="2026-12-29"
+          >
+            <span class="event-card-art event-card-art--retreat" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M2 5.5A2.5 2.5 0 0 1 4.5 3H10a2 2 0 0 1 2 2v16a2 2 0 0 0-2-2H2z" />
+                <path d="M22 5.5A2.5 2.5 0 0 0 19.5 3H14a2 2 0 0 0-2 2v16a2 2 0 0 1 2-2h8z" />
+              </svg>
+            </span>
+            <span class="event-date"><b>24</b><small>Dec</small></span>
+            <span class="event-card-body">
+              <span class="event-tag">On location</span>
+              <strong>December Retreat</strong>
+              <span class="event-sub">December 24 &ndash; 29</span>
+            </span>
+          </a>
+          <a
+            href="events.html"
+            class="event-card"
+            data-reveal="rise"
+            data-reveal-delay="240"
+            data-end="2026-12-31"
+          >
+            <span class="event-card-art event-card-art--newyear" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z" />
+                <path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" />
+                <path d="M5 16l.6 1.4L7 18l-1.4.6L5 20l-.6-1.4L3 18l1.4-.6z" />
+              </svg>
+            </span>
+            <span class="event-date"><b>31</b><small>Dec</small></span>
+            <span class="event-card-body">
+              <span class="event-tag">Church-wide</span>
+              <strong>New Year&rsquo;s Eve</strong>
+              <span class="event-sub">Thursday, December 31</span>
+            </span>
+          </a>
+        </div>
+        <p class="event-cards-empty" hidden>
+          New events are on the way. See the
+          <a href="events.html">full calendar</a> for what&rsquo;s next.
+        </p>
       </div>
     </section>
 
@@ -455,403 +618,104 @@
     </section>
 
     <!-- ============================================================
-     MISSION / ABOUT TEASER
+     CONTACT + LOCATION / MAP
      ============================================================ -->
-    <section id="about" class="section-light">
-      <div class="wrap mission">
-        <div class="mission-copy">
-          <span class="ribbon"
-            ><span class="dot">&#9670;</span> About Us
-            <span class="dot">&#9670;</span></span
-          >
-          <h2>Bible-based holiness, lived out as a family.</h2>
-          <p>
-            Deeper Life Bible Church is a global, Bible-based holiness church
-            that started in 1973 at Lagos, Nigeria with 15 people, under the
-            leadership of its founder and General Superintendent, Pastor Dr.
-            William F. Kumuyi. Our commitment is to the systematic and
-            expository teaching of God's word, and to nurturing believers into
-            holy, purposeful living.
-          </p>
-          <p>
-            Our mission is to spread the message of salvation to all nations,
-            fulfilling the Great Commission. We envision a community of
-            believers established in the faith, living holy lives, and prepared
-            for the coming of Christ.
-          </p>
-          <div class="mission-links">
-            <a href="#beliefs" class="text-link">Read Our Beliefs</a>
-          </div>
-        </div>
-        <figure class="mission-figure">
-          <div class="carousel-slides">
-            <img
-              src="images/moredclmalex.jpg"
-              alt="Members of the Alexandria congregation gathered together"
-              class="carousel-slide is-active"
-            />
-            <img
-              src="images/dclmalex10.JPG"
-              alt="Members of the Alexandria congregation gathered together"
-              class="carousel-slide"
-            />
-            <img
-              src="images/sendoff2.JPG"
-              alt="Members of the Alexandria congregation gathered together"
-              class="carousel-slide"
-            />
-            <img
-              src="images/pstnsiahandmaesther.jpg"
-              alt="Members of the Alexandria congregation gathered together"
-              class="carousel-slide"
-            />
-          </div>
-          <button class="carousel-arrow carousel-prev" aria-label="Previous photo">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M19 12H5M11 18l-6-6 6-6" />
-            </svg>
-          </button>
-          <button class="carousel-arrow carousel-next" aria-label="Next photo">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </button>
-        </figure>
-      </div>
-    </section>
-
-    <!-- ============================================================
-     DOCTRINE / QUICK FACTS STRIP
-     ============================================================ -->
-    <section id="beliefs" class="section-dark">
-      <div class="wrap">
-        <div class="section-head on-dark">
-          <span class="ribbon"
-            ><span class="dot">&#9670;</span> Bible Doctrines
-            <span class="dot">&#9670;</span></span
-          >
-          <h2>What we believe</h2>
-          <p>Core truths from Scripture that shape everything we teach and practice.</p>
-        </div>
-      </div>
-      <div class="doctrine-marquee">
-        <div class="doctrine-track">
-          <div class="doctrine-card">
-            <strong>66</strong><span>Books of the Bible, our final word</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>3-in-1</strong
-            ><span>Father, Son &amp; Holy Ghost, one God</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Holiness</strong
-            ><span>Entire sanctification, a further work of grace</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>The Rapture</strong
-            ><span>We watch and wait for Christ's return</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Hell</strong
-            ><span>Eternal separation from God for the unrepentant</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Heaven</strong
-            ><span>Our eternal home with Christ forever</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Holy Ghost Baptism</strong
-            ><span>Empowerment for holy living and service</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Water Baptism</strong
-            ><span>Public testimony of a believer's new life</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>The Great Tribulation</strong
-            ><span>A time of unprecedented trial before Christ's reign</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>The Millennial Reign</strong
-            ><span>Christ's thousand-year reign of peace on earth</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>The Great White Throne Judgement</strong
-            ><span>Final judgment before God's throne</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>The Virgin Birth</strong
-            ><span>Christ conceived by the Holy Ghost, born of a virgin</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Total Depravity</strong
-            ><span>All mankind fallen and in need of grace</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Repentance</strong
-            ><span>A genuine turning away from sin toward God</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Restitution</strong
-            ><span>Making things right, the fruit of true repentance</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Justification</strong
-            ><span
-              >Forgiven and counted righteous through faith in Christ's
-              blood</span
-            >
-          </div>
-          <div class="doctrine-card">
-            <strong>The Lord's Supper</strong
-            ><span>Communion in remembrance of Christ's sacrifice</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Redemption, Healing &amp; Health</strong
-            ><span>Wholeness of spirit, soul, and body through Christ</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Personal Evangelism</strong
-            ><span>One-on-one, God-ordained ministry to reach the lost</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>Marriage</strong
-            ><span>God's sacred covenant between one man and one woman</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>The Resurrection of the Dead</strong
-            ><span>All will rise: some to life, some to judgment</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>The New Heavens and New Earth</strong
-            ><span>God will replace this fallen creation with a new one</span>
-          </div>
-          <div class="doctrine-card">
-            <strong>New Jerusalem</strong
-            ><span>The eternal holy city prepared for God's people</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>66</strong><span>Books of the Bible, our final word</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>3-in-1</strong
-            ><span>Father, Son &amp; Holy Ghost, one God</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Holiness</strong
-            ><span>Entire sanctification, a further work of grace</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>The Rapture</strong
-            ><span>We watch and wait for Christ's return</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Hell</strong
-            ><span>Eternal separation from God for the unrepentant</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Heaven</strong
-            ><span>Our eternal home with Christ forever</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Holy Ghost Baptism</strong
-            ><span>Empowerment for holy living and service</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Water Baptism</strong
-            ><span>Public testimony of a believer's new life</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>The Great Tribulation</strong
-            ><span>A time of unprecedented trial before Christ's reign</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>The Millennial Reign</strong
-            ><span>Christ's thousand-year reign of peace on earth</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>The Great White Throne Judgement</strong
-            ><span>Final judgment before God's throne</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>The Virgin Birth</strong
-            ><span>Christ conceived by the Holy Ghost, born of a virgin</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Total Depravity</strong
-            ><span>All mankind fallen and in need of grace</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Repentance</strong
-            ><span>A genuine turning away from sin toward God</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Restitution</strong
-            ><span>Making things right, the fruit of true repentance</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Justification</strong
-            ><span
-              >Forgiven and counted righteous through faith in Christ's
-              blood</span
-            >
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>The Lord's Supper</strong
-            ><span>Communion in remembrance of Christ's sacrifice</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Redemption, Healing &amp; Health</strong
-            ><span>Wholeness of spirit, soul, and body through Christ</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Personal Evangelism</strong
-            ><span>One-on-one, God-ordained ministry to reach the lost</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>Marriage</strong
-            ><span>God's sacred covenant between one man and one woman</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>The Resurrection of the Dead</strong
-            ><span>All will rise: some to life, some to judgment</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>The New Heavens and New Earth</strong
-            ><span>God will replace this fallen creation with a new one</span>
-          </div>
-          <div class="doctrine-card" aria-hidden="true">
-            <strong>New Jerusalem</strong
-            ><span>The eternal holy city prepared for God's people</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-     GALLERY
-     ============================================================ -->
-    <section id="gallery" class="section-light">
+    <section id="location" class="section-light location-section">
       <div class="wrap">
         <div class="section-head">
           <span class="ribbon"
-            ><span class="dot">&#9670;</span> Photo Gallery
-            <span class="dot">&#9670;</span></span
-          >
-          <h2>Life together at Deeper Life Alexandria</h2>
-        </div>
-        <div class="gallery-grid">
-          <button
-            class="gallery-item"
-            type="button"
-            data-src="images/dclmalex6.jpg"
-            data-alt="Congregation members gathered in fellowship"
-          >
-            <img
-              src="images/dclmalex6.jpg"
-              alt="Congregation members gathered in fellowship"
-            />
-          </button>
-          <button
-            class="gallery-item"
-            type="button"
-            data-src="images/dclmalex4.jpg"
-            data-alt="Church members celebrating together"
-          >
-            <img
-              src="images/dclmalex4.jpg"
-              alt="Church members celebrating together"
-            />
-          </button>
-          <button
-            class="gallery-item"
-            type="button"
-            data-src="images/dclmalex3.jpg"
-            data-alt="Congregation family photo under the Holiness Unto the Lord banner"
-          >
-            <img
-              src="images/dclmalex3.jpg"
-              alt="Congregation family photo under the Holiness Unto the Lord banner"
-            />
-          </button>
-          <button
-            class="gallery-item"
-            type="button"
-            data-src="images/sendoff1.JPG"
-            data-alt="Church members gathered for a group photo"
-          >
-            <img
-              src="images/sendoff1.JPG"
-              alt="Church members gathered for a group photo"
-            />
-          </button>
-          <button
-            class="gallery-item"
-            type="button"
-            data-src="images/dclmalex10.JPG"
-            data-alt="Photo of the Alexandria congregation members gathered together"
-          >
-            <img
-              src="images/dclmalex10.JPG"
-              alt="Photo of the Alexandria congregation members gathered together"
-            />
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-     LOCATION / MAP
-     ============================================================ -->
-    <section id="location" class="section-light" style="padding-top: 0">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="ribbon"
-            ><span class="dot">&#9670;</span> Our Location
+            ><span class="dot">&#9670;</span> Contact &amp; Location
             <span class="dot">&#9670;</span></span
           >
           <h2>Find us in Alexandria, Virginia</h2>
           <p>
-            8601 Engleside Office Park, Alexandria, VA 22309. Stop by any
-            Sunday, or use the map below to plan your visit.
+            Stop by any Sunday, send us a message, or use the map to plan your
+            visit.
           </p>
         </div>
-        <div class="map-frame">
-          <iframe
-            src="https://www.google.com/maps?q=8601+Engleside+Office+Park,+Alexandria,+VA+22309&output=embed"
-            width="100%"
-            height="100%"
-            style="border: 0"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Map showing the Deeper Life Bible Church Alexandria, VA location"
-          ></iframe>
+        <div class="contact-map-grid">
+          <div class="contact-panel" data-reveal="left">
+            <div class="contact-panel-form">
+              <h3>Contact us</h3>
+              <p>
+                New here, have a prayer request, or a question? Fill out our
+                short form and someone from our church will get back to you.
+              </p>
+              <a
+                href="https://forms.gle/wAqigv24M6MeigBf7"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-gold contact-panel-btn"
+                >Fill Out the Contact Form
+                <span aria-hidden="true">&rarr;</span></a
+              >
+            </div>
+            <div class="contact-info-card">
+              <div class="contact-info-brand">
+                <img src="images/dclmlogo.png" alt="" />
+                <div>
+                  <strong>Deeper Life Bible Church</strong>
+                  <span>Alexandria, Virginia</span>
+                </div>
+              </div>
+              <ul class="contact-info-list">
+                <li>
+                  <span class="contact-info-label">Address</span>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&amp;query=8601+Engleside+Office+Park+Alexandria+VA+22309"
+                    target="_blank"
+                    rel="noopener"
+                    >8601 Engleside Office Park, Alexandria, VA 22309</a
+                  >
+                </li>
+                <!-- PHONE: add the church phone number here, for example:
+                <li>
+                  <span class="contact-info-label">Phone</span>
+                  <a href="tel:+1XXXXXXXXXX">(XXX) XXX-XXXX</a>
+                </li>
+                -->
+                <li>
+                  <span class="contact-info-label">Email</span>
+                  <a href="mailto:dlbcalexandriava@gmail.com"
+                    >dlbcalexandriava@gmail.com</a
+                  >
+                </li>
+                <li>
+                  <span class="contact-info-label">Socials</span>
+                  <a
+                    class="contact-info-social"
+                    href="https://www.youtube.com/@dclmalexva"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path
+                        d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.51 3.5 12 3.5 12 3.5s-7.51 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14c1.87.56 9.38.56 9.38.56s7.51 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.4 3.6-6.4 3.6Z"
+                      />
+                    </svg>
+                    YouTube &middot; @dclmalexva
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="map-frame contact-map" data-reveal="right">
+            <iframe
+              src="https://www.google.com/maps?q=8601+Engleside+Office+Park,+Alexandria,+VA+22309&output=embed"
+              width="100%"
+              height="100%"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Map showing the Deeper Life Bible Church Alexandria, VA location"
+            ></iframe>
+          </div>
         </div>
       </div>
     </section>
 
     <div id="footer-placeholder"></div>
-
-    <!-- ============================================================
-     GALLERY LIGHTBOX
-     ============================================================ -->
-    <div class="lightbox-overlay" id="galleryLightbox" aria-hidden="true">
-      <button class="lightbox-close" id="lightboxClose" aria-label="Close">
-        &times;
-      </button>
-      <img src="" alt="" id="lightboxImage" />
-    </div>
 
     <script src="main.js"></script>
   </body>

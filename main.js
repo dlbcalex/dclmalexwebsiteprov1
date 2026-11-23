@@ -64,16 +64,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ---------- Site search ---------- */
   const SEARCH_INDEX = [
     { title: 'Home', url: 'index.html' },
-    { title: 'About Us', url: 'index.html#about' },
-    { title: 'Our Beliefs / Bible Doctrines', url: 'index.html#beliefs' },
-    { title: 'Pastor Dr. William F. Kumuyi', url: 'pastor-kumuyi.html' },
-    { title: 'Senior Pastor & Regional Overseer - Pastor Michael A. Dada', url: 'pastor-dada.html' },
+    { title: 'Who We Are / About Us', url: 'about.html' },
+    { title: 'Our Beliefs / What We Believe', url: 'about.html#beliefs' },
+    { title: 'General Superintendent - Pastor Dr. William F. Kumuyi', url: 'pastor-kumuyi.html' },
+    { title: 'Regional Overseer - Pastor Dr. Michael A. Dada', url: 'pastor-dada.html' },
     { title: 'Location Pastor - Pastor Dr. James Amara', url: 'pastor-amara.html' },
+    { title: 'Our Leaders', url: 'index.html#leaders' },
     { title: 'Church Services', url: 'services.html' },
     { title: 'Event Calendar', url: 'events.html' },
     { title: 'Stay Connected / WhatsApp Groups', url: 'connect.html' },
     { title: 'Global Crusade with Kumuyi (GCK)', url: 'gck.html' },
-    { title: 'Photo Gallery', url: 'index.html#gallery' },
+    { title: 'Picture Gallery', url: 'gallery.html' },
+    { title: 'Devotionals: Daily Manna', url: 'https://dailymanna.app' },
+    { title: 'Devotionals: Higher Everyday', url: 'https://dailymanna.app/category/higher-everyday/' },
+    { title: 'Contact Us', url: 'index.html#location' },
     { title: 'Our Location / Map', url: 'index.html#location' },
     { title: 'Daily Manna', url: 'https://www.dailymanna.app/signin' },
     { title: 'YouTube: DCLM Alexandria VA', url: 'https://www.youtube.com/@dclmalexva' },
@@ -152,6 +156,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ---------- Sticky header shadow on scroll ---------- */
   const header = document.querySelector('.site-header');
   const onScroll = () => {
+    // Homepage: header is transparent over the hero until you scroll
+    header?.classList.toggle('is-scrolled', window.scrollY > 40);
     if (window.scrollY > 12) {
       header.style.boxShadow = '0 12px 30px -20px rgba(0,0,0,0.6)';
     } else {
@@ -168,8 +174,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
+            const el = entry.target;
+            el.classList.add('is-visible');
+            io.unobserve(el);
+            // Once revealed, drop the stagger delay so hover effects respond instantly
+            const wait = (parseInt(el.dataset.revealDelay || '0', 10) || 0) + 1100;
+            setTimeout(() => {
+              el.style.transitionDelay = '';
+            }, wait);
           }
         });
       },
@@ -228,38 +240,222 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   queueWelcomeModal();
 
-  /* ---------- Gallery lightbox ---------- */
-  const galleryLightbox = document.getElementById('galleryLightbox');
-  if (galleryLightbox) {
-    const lightboxImage = document.getElementById('lightboxImage');
-    const lightboxClose = document.getElementById('lightboxClose');
+  /* ---------- Resources > Devotionals side menu ---------- */
+  document.querySelectorAll('.subdropdown-toggle').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const wrap = btn.closest('.has-subdropdown');
+      const open = wrap.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  });
 
+  /* ---------- Gallery: photo list shared by the featured viewer + lightbox ---------- */
+  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+  const galleryPhotos = galleryItems.map((item) => ({
+    src: item.dataset.src,
+    alt: item.dataset.alt || '',
+  }));
+
+  /* ---------- Gallery lightbox (with previous / next) ---------- */
+  const galleryLightbox = document.getElementById('galleryLightbox');
+  let openLightboxAt = null;
+  if (galleryLightbox && galleryPhotos.length) {
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+    let lbIndex = 0;
+
+    const showLightbox = (i) => {
+      lbIndex = (i + galleryPhotos.length) % galleryPhotos.length;
+      const photo = galleryPhotos[lbIndex];
+      lightboxImage.classList.remove('is-shown');
+      void lightboxImage.offsetWidth;
+      lightboxImage.src = photo.src;
+      lightboxImage.alt = photo.alt;
+      lightboxImage.classList.add('is-shown');
+      if (lightboxCaption) {
+        lightboxCaption.textContent = `${photo.alt}  ·  ${lbIndex + 1} / ${galleryPhotos.length}`;
+      }
+    };
+    openLightboxAt = (i) => {
+      showLightbox(i);
+      galleryLightbox.classList.add('is-open');
+      galleryLightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
     const closeLightbox = () => {
       galleryLightbox.classList.remove('is-open');
       galleryLightbox.setAttribute('aria-hidden', 'true');
-      lightboxImage.src = '';
       document.body.style.overflow = '';
     };
 
-    document.querySelectorAll('.gallery-item').forEach((item) => {
-      item.addEventListener('click', () => {
-        lightboxImage.src = item.dataset.src;
-        lightboxImage.alt = item.dataset.alt || '';
-        galleryLightbox.classList.add('is-open');
-        galleryLightbox.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
+    galleryItems.forEach((item, i) =>
+      item.addEventListener('click', () => openLightboxAt(i))
+    );
+    lightboxPrev?.addEventListener('click', () => showLightbox(lbIndex - 1));
+    lightboxNext?.addEventListener('click', () => showLightbox(lbIndex + 1));
     lightboxClose?.addEventListener('click', closeLightbox);
     galleryLightbox.addEventListener('click', (e) => {
       if (e.target === galleryLightbox) closeLightbox();
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && galleryLightbox.classList.contains('is-open')) {
-        closeLightbox();
-      }
+      if (!galleryLightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft') showLightbox(lbIndex - 1);
+      else if (e.key === 'ArrowRight') showLightbox(lbIndex + 1);
     });
+    // Swipe left/right on touch screens
+    let touchX = null;
+    galleryLightbox.addEventListener('touchstart', (e) => {
+      touchX = e.touches[0].clientX;
+    }, { passive: true });
+    galleryLightbox.addEventListener('touchend', (e) => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 45) showLightbox(lbIndex + (dx < 0 ? 1 : -1));
+      touchX = null;
+    });
+  }
+
+  /* ---------- Gallery featured viewer (Picture Gallery page) ---------- */
+  const stageImage = document.getElementById('stageImage');
+  if (stageImage && galleryPhotos.length) {
+    const stageCaption = document.getElementById('stageCaption');
+    const stageCount = document.getElementById('stageCount');
+    const stageThumbs = document.getElementById('stageThumbs');
+    const stagePlay = document.getElementById('stagePlay');
+    const stageExpand = document.getElementById('stageExpand');
+    let stIndex = 0;
+    let stTimer = null;
+    let playing = true;
+
+    const thumbBtns = galleryPhotos.map((photo, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'stage-thumb';
+      b.setAttribute('aria-label', `Show photo ${i + 1}`);
+      const img = document.createElement('img');
+      img.src = photo.src;
+      img.alt = '';
+      img.loading = 'lazy';
+      b.appendChild(img);
+      b.addEventListener('click', () => {
+        showStage(i);
+        restartStage();
+      });
+      stageThumbs?.appendChild(b);
+      return b;
+    });
+
+    const showStage = (i) => {
+      stIndex = (i + galleryPhotos.length) % galleryPhotos.length;
+      const photo = galleryPhotos[stIndex];
+      stageImage.classList.add('is-fading');
+      setTimeout(() => {
+        stageImage.src = photo.src;
+        stageImage.alt = photo.alt;
+        stageImage.classList.remove('is-fading');
+      }, 260);
+      if (stageCaption) stageCaption.textContent = photo.alt;
+      if (stageCount) stageCount.textContent = `${stIndex + 1} / ${galleryPhotos.length}`;
+      thumbBtns.forEach((b, j) => b.classList.toggle('is-active', j === stIndex));
+      // Keep the active thumbnail centred without scrolling the page itself
+      const tb = thumbBtns[stIndex];
+      if (tb && stageThumbs) {
+        stageThumbs.scrollTo({
+          left: tb.offsetLeft - stageThumbs.clientWidth / 2 + tb.clientWidth / 2,
+          behavior: 'smooth',
+        });
+      }
+    };
+    const restartStage = () => {
+      clearInterval(stTimer);
+      if (playing) stTimer = setInterval(() => showStage(stIndex + 1), 5000);
+    };
+
+    document.querySelector('.stage-prev')?.addEventListener('click', () => {
+      showStage(stIndex - 1);
+      restartStage();
+    });
+    document.querySelector('.stage-next')?.addEventListener('click', () => {
+      showStage(stIndex + 1);
+      restartStage();
+    });
+    stagePlay?.addEventListener('click', () => {
+      playing = !playing;
+      stagePlay.textContent = playing ? 'Pause' : 'Play';
+      stagePlay.setAttribute('aria-pressed', String(playing));
+      restartStage();
+    });
+    stageExpand?.addEventListener('click', () => openLightboxAt?.(stIndex));
+
+    thumbBtns[0]?.classList.add('is-active');
+    if (stageCount) stageCount.textContent = `1 / ${galleryPhotos.length}`;
+    restartStage();
+  }
+
+  /* ---------- Hero background rotator: photo -> video -> photo, cross-fading ---------- */
+  const heroLayers = document.querySelectorAll('.hero-rotator .hero-bg-layer');
+  if (heroLayers.length > 1) {
+    let layerIndex = 0;
+    let layerTimer = null;
+
+    const activate = (i) => {
+      const prev = heroLayers[layerIndex];
+      layerIndex = i % heroLayers.length;
+      const layer = heroLayers[layerIndex];
+      clearTimeout(layerTimer);
+
+      if (layer.tagName === 'VIDEO') {
+        layer.currentTime = 0;
+        const playing = layer.play();
+        // Move on when the clip ends (or after 30s as a safety net)
+        const next = () => activate(layerIndex + 1);
+        layer.onended = next;
+        layerTimer = setTimeout(next, 30000);
+        if (playing && playing.catch) {
+          // If the browser blocks autoplay, skip the video
+          playing.catch(() => activate(layerIndex + 1));
+        }
+      } else {
+        layerTimer = setTimeout(
+          () => activate(layerIndex + 1),
+          parseInt(layer.dataset.hold || '7000', 10)
+        );
+      }
+
+      layer.classList.add('is-active');
+      if (prev !== layer) {
+        prev.classList.remove('is-active');
+        if (prev.tagName === 'VIDEO') {
+          prev.onended = null;
+          setTimeout(() => prev.pause(), 1600);
+        }
+      }
+    };
+
+    layerTimer = setTimeout(
+      () => activate(1),
+      parseInt(heroLayers[0].dataset.hold || '7000', 10)
+    );
+  }
+
+  /* ---------- Upcoming events: hide cards whose end date has passed ---------- */
+  const eventCards = document.querySelectorAll('.event-card[data-end]');
+  if (eventCards.length) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let shown = 0;
+    eventCards.forEach((card) => {
+      const [y, m, d] = card.dataset.end.split('-').map(Number);
+      if (new Date(y, m - 1, d) < today) card.remove();
+      else shown++;
+    });
+    if (!shown) document.querySelector('.event-cards-empty')?.removeAttribute('hidden');
   }
 
   /* ---------- Hero slideshow ---------- */
