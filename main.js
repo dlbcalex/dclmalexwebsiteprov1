@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     { title: 'Devotionals: Daily Manna', url: 'https://dailymanna.app' },
     { title: 'Devotionals: Higher Everyday', url: 'https://dailymanna.app/category/higher-everyday/' },
     { title: 'Contact Us', url: 'index.html#location' },
+    { title: 'Phone: (301) 433-1358', url: 'tel:+13014331358' },
     { title: 'Our Location / Map', url: 'index.html#location' },
     { title: 'Daily Manna', url: 'https://www.dailymanna.app/signin' },
     { title: 'YouTube: DCLM Alexandria VA', url: 'https://www.youtube.com/@dclmalexva' },
