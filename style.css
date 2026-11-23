@@ -5856,3 +5856,109 @@ body {
     gap: 0.35rem;
   }
 }
+
+/* ============================================================
+   FOOTER polish: soft glow + faint cross watermark, icon details,
+   pill hovers (same overall size)
+   ============================================================ */
+.site-footer {
+  overflow: hidden;
+  isolation: isolate;
+}
+/* soft glow, top right */
+.site-footer::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -140px;
+  right: -80px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, transparent 65%);
+  pointer-events: none;
+}
+/* faint cross watermark, bottom left */
+.site-footer::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 4%;
+  bottom: -40px;
+  width: 150px;
+  height: 190px;
+  opacity: 0.07;
+  background: linear-gradient(var(--white), var(--white)) center / 26px 100% no-repeat,
+    linear-gradient(var(--white), var(--white)) center 32% / 100% 26px no-repeat;
+  pointer-events: none;
+}
+.footer-top .brand {
+  transition: opacity 0.2s ease;
+}
+.footer-top .brand:hover {
+  opacity: 0.9;
+}
+/* nav links: soft pill on hover instead of the underline */
+.footer-links a {
+  padding: 0.35rem 0.6rem;
+  margin: -0.35rem -0.6rem;
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+.footer-links a::after {
+  display: none;
+}
+.footer-links a:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+/* contact details with small icons */
+.footer-meta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.footer-ico {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.8;
+}
+.footer-meta a:hover {
+  text-decoration: none;
+  color: var(--white);
+}
+.footer-meta a:hover .footer-ico {
+  opacity: 1;
+}
+.footer-bottom > span {
+  color: rgba(255, 255, 255, 0.78);
+}
+/* keep copyright + details on one row on wide desktops; watermark on the right */
+@media (min-width: 1101px) and (max-width: 1239px) {
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+}
+@media (min-width: 1240px) {
+  .footer-bottom {
+    flex-wrap: nowrap;
+    font-size: 0.74rem;
+  }
+  .footer-meta {
+    gap: 0.4rem 1.05rem;
+    flex-wrap: nowrap;
+  }
+}
+.site-footer::after {
+  left: auto;
+  right: 6%;
+  bottom: -70px;
+  opacity: 0.05;
+}
