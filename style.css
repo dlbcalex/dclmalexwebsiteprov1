@@ -5539,7 +5539,7 @@ body {
    GCK PAGE (teal theme)
    ============================================================ */
 .gck-hero {
-  padding-block: clamp(3.5rem, 7vw, 5.5rem);
+  padding-block: clamp(4rem, 7.6vw, 6.25rem);
 }
 .gck-hero-badge {
   display: inline-grid;
